@@ -1,0 +1,33 @@
+﻿<Window x:Class="PH1_QTCSDL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PH1_QTCSDL"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Grid>
+        <DataGrid x:Name="myDataGrid" Margin="356,20,10,0" Height="404" VerticalAlignment="Top" SelectionChanged="myDataGrid_SelectionChanged"/>
+        <Label Content="Họ tên" HorizontalAlignment="Left" Margin="37,94,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label Content="Mã NV" HorizontalAlignment="Left" Margin="36,62,0,0" VerticalAlignment="Top" Width="61"/>
+        <Label Content="Lương" HorizontalAlignment="Left" Margin="37,125,0,0" VerticalAlignment="Top" Width="58"/>
+        <Label Content="Vai trò" HorizontalAlignment="Left" Margin="40,169,0,0" VerticalAlignment="Top" Width="58"/>
+        <Label Content="Đơn vị" HorizontalAlignment="Left" Margin="40,203,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.575,-0.721" Width="59"/>
+        <TextBox x:Name="txtbxMaNV" HorizontalAlignment="Left" Margin="141,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
+        <TextBox x:Name="txtbxName" HorizontalAlignment="Left" Margin="141,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
+        <TextBox x:Name="txtbxSalary" HorizontalAlignment="Left" Margin="141,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
+        <ComboBox x:Name="cbbPositions" Margin="141,171,601,239" SelectionChanged="ComboBox_SelectionChanged"
+                  DisplayMemberPath="DisplayName"
+                  SelectedValuePath="SelectedValue"
+                  >
+        </ComboBox>
+        <ComboBox x:Name="cbbDepartments" Margin="141,205,601,205"  SelectionChanged="ComboBox_SelectionChanged"
+                  DisplayMemberPath="DisplayName"
+                  SelectedValuePath="SelectedValue"/>
+        <GroupBox Header="Thông tin nhân viên" Margin="10,10,561,186"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="34,270,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="45" Height="30"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="110,270,0,0" VerticalAlignment="Top" Width="53" Height="30" Click="btnUpdate_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="194,270,0,0" VerticalAlignment="Top" Width="52" Height="30" Click="btnDelete_Click"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="271,270,0,0" VerticalAlignment="Top" Width="51" Height="30" Click="btnReset_Click"/>
+    </Grid>
+</Window>
