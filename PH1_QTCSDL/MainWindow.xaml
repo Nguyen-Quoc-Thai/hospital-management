@@ -16,14 +16,26 @@
         <TextBox x:Name="txtbxMaNV" HorizontalAlignment="Left" Margin="141,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
         <TextBox x:Name="txtbxName" HorizontalAlignment="Left" Margin="141,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
         <TextBox x:Name="txtbxSalary" HorizontalAlignment="Left" Margin="141,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="158"/>
-        <ComboBox x:Name="cbbPositions" Margin="141,171,601,239" SelectionChanged="ComboBox_SelectionChanged"
-                  DisplayMemberPath="DisplayName"
-                  SelectedValuePath="SelectedValue"
-                  >
-        </ComboBox>
-        <ComboBox x:Name="cbbDepartments" Margin="141,205,601,205"  SelectionChanged="ComboBox_SelectionChanged"
-                  DisplayMemberPath="DisplayName"
-                  SelectedValuePath="SelectedValue"/>
+        <ComboBox 
+            x:Name="cbbPositions" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="160" 
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="142,169,0,0"
+            DisplayMemberPath="DisplayName"
+            SelectedValuePath="SelectedValue"
+        ></ComboBox>
+        <ComboBox 
+            x:Name="cbbDepartments" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="155"  
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="23" Margin="144,203,0,0"
+            DisplayMemberPath="DisplayName"
+            SelectedValuePath="SelectedValue"
+        ></ComboBox>
         <GroupBox Header="Thông tin nhân viên" Margin="10,10,561,186"/>
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="34,270,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="45" Height="30"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="110,270,0,0" VerticalAlignment="Top" Width="53" Height="30" Click="btnUpdate_Click"/>
