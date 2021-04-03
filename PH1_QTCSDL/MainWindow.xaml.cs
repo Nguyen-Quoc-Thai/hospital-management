@@ -26,112 +26,19 @@ namespace PH1_QTCSDL
     public partial class MainWindow : Window
     {
         OracleConnection conn = null;
+        OracleDatabase db;
         public MainWindow()
         {
-            this.setConnection();
+            //this.setConnection();
             InitializeComponent();
-        }
-
-        private void loadCombobox()
-        {
-            try
-            {
-                int len = 0;
-
-                // Load CBB VAITRO
-                OracleCommand cmd1 = conn.CreateCommand();
-                DataTable dt1 = new DataTable();
-                OracleDataReader dr1;
-                List<DataRow> dtr1;
-                List<Combobox> ls1 = new List<Combobox>();
-
-                cmd1.CommandType = CommandType.Text;
-                cmd1.CommandText = "SELECT VAITRO, MAVAITRO FROM VAITRO ORDER BY MAVAITRO DESC";
-
-                dr1 = cmd1.ExecuteReader();
-                dt1.Load(dr1);
-                dtr1 = dt1.AsEnumerable().ToList();
-
-                len = dtr1.Count();
-                while(len > 0)
-                {
-                    ls1.Add(new Combobox() { DisplayName = dtr1[len-1].ItemArray[0].ToString(), SelectedValue = dtr1[len - 1].ItemArray[1].ToString() });
-                    len--;
-                }
-
-                cbbPositions.ItemsSource = ls1;
-
-                // Load CBB DONVI
-                OracleCommand cmd2 = conn.CreateCommand();
-                DataTable dt2 = new DataTable();
-                OracleDataReader dr2;
-                List<DataRow> dtr2;
-                List<Combobox> ls2 = new List<Combobox>();
-
-                cmd2.CommandType = CommandType.Text;
-                cmd2.CommandText = "SELECT TENDV, MADV FROM DONVI ORDER BY MADV DESC";
-
-                dr2 = cmd2.ExecuteReader();
-                dt2.Load(dr2);
-                dtr2 = dt2.AsEnumerable().ToList();
-
-                len = dtr2.Count();
-                while (len > 0)
-                {
-                    ls2.Add(new Combobox() { DisplayName = dtr2[len - 1].ItemArray[0].ToString(), SelectedValue = dtr2[len - 1].ItemArray[1].ToString() });
-                    len--;
-                }
-
-                cbbDepartments.ItemsSource = ls2;
-
-                // Close DataReader
-                dr1.Close();
-                dr2.Close();
-            }
-            catch(Exception exp)
-            {
-                throw new Exception("Failed to load combobox!");
-            }
-        }
-
-        public class Combobox
-        {
-            public string DisplayName { get; set; }
-            public string SelectedValue { get; set; }
-        }
-
-        private void updateDataGrid()
-        {
-            OracleCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT MANV, HOTEN, LUONG, VAITRO, DONVI FROM NHANVIEN ORDER BY MANV DESC";
-            cmd.CommandType = CommandType.Text;
-            OracleDataReader dr = cmd.ExecuteReader();
-            DataTable dt = new DataTable();
-            dt.Load(dr);
-            myDataGrid.ItemsSource = dt.DefaultView;
-            dr.Close();
-        }
-
-        private void setConnection()
-        {
-            string connectionString = "TNS_ADMIN = C:\\Users\\Qouc Tahi\\Oracle\\network\\admin; USER ID = nqt; PASSWORD = nqt; DATA SOURCE = localhost:1521/ORCLCDB.localdomain; PERSIST SECURITY INFO = True";
-            this.conn = new OracleConnection();
-            this.conn.ConnectionString = connectionString;
-
-            try
-            {
-                this.conn.Open();
-            }
-            catch (Exception exp)
-            {
-                throw new Exception("Failed to connect to OracleDB!");
-            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.updateDataGrid();
-            this.loadCombobox();
+            db = OracleDatabase.Instance;
+
+            this.UpdateDataGrid();
+            this.LoadCombobox();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -139,6 +46,67 @@ namespace PH1_QTCSDL
             conn.Close();
         }
 
+
+        private void LoadCombobox()
+        {
+            try
+            {
+                // Load CBB VAITRO
+
+                //Initialize
+                DataTable dt1 = db.Query("SELECT VAITRO, MAVAITRO FROM VAITRO ORDER BY MAVAITRO DESC");
+                List<DataRow> dataRows_pos = dt1.GetRows();
+
+                List<Combobox> listPosition = new List<Combobox>();
+                foreach (DataRow dtr in dataRows_pos)
+                {
+                    listPosition.Add(new Combobox() {
+                        DisplayName = dtr.GetData(0),
+                        SelectedValue = dtr.GetData(1)
+
+                    });
+                }
+                cbbPositions.ItemsSource = listPosition;
+
+
+                // Load CBB DONVI
+                //Initialize
+                DataTable dt2 = db.Query("SELECT TENDV, MADV FROM DONVI ORDER BY MADV ASC");
+                List<DataRow> dataRows_depart = dt2.GetRows();
+
+                List<Combobox> listDepart = new List<Combobox>();
+                foreach (DataRow dtr in dataRows_depart)
+                {
+                    listDepart.Add(new Combobox()
+                    {
+                        DisplayName = dtr.GetData(0),
+                        SelectedValue = dtr.GetData(1)
+
+                    });
+                }
+                cbbDepartments.ItemsSource = listDepart;
+
+
+
+            }
+            catch (Exception exp)
+            {
+                throw new Exception("Failed to load combobox!");
+            }
+        }
+
+        //public class Combobox
+        //{
+        //    public string DisplayName { get; set; }
+        //    public string SelectedValue { get; set; }
+        //}
+
+        private void UpdateDataGrid()
+        {
+            DataTable dt =  db.Query("SELECT MANV, HOTEN, LUONG, VAITRO, DONVI FROM NHANVIEN ORDER BY MANV DESC");
+            myDataGrid.ItemsSource = dt.DefaultView;
+        }
+        
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //throw new NotImplementedException();
@@ -228,7 +196,7 @@ namespace PH1_QTCSDL
                 if (n > 0)
                 {
                     MessageBox.Show(msg);
-                    this.updateDataGrid();
+                    this.UpdateDataGrid();
                 }
             }catch(Exception exp)
             {
