@@ -24,8 +24,8 @@ namespace PH1_QTCSDL.Command
         {
             switch(parameter)
             {
-                case "A":
-
+                case "ListUser":
+                    _viewModel.CurrentViewModel = new ListUserViewModel();
                     break;
             }
         }

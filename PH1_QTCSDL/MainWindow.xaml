@@ -36,15 +36,16 @@
                             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="Resistor"/>
+                                    <materialDesign:PackIcon Kind="TabletDashboard"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
                         <ListViewItem HorizontalAlignment="Center" Margin="0">
                             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black">
+                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                 Command="{Binding UpdateViewCommand}" CommandParameter="ListUser"  >
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="CircleSlice6"/>
+                                    <materialDesign:PackIcon Kind="Users"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
@@ -94,6 +95,12 @@
                 <DataTemplate DataType="{x:Type viewmodels:ListUserViewModel}">
                     <views:ListUserView></views:ListUserView>
                 </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:HomeWindowModel}">
+                    <views:HomeView></views:HomeView>
+                </DataTemplate>
+
+
             </ContentControl.Resources>
         </ContentControl>
     </Grid>
