@@ -27,6 +27,12 @@ namespace PH1_QTCSDL.Command
                 case "ListUser":
                     _viewModel.CurrentViewModel = new ListUserViewModel();
                     break;
+                case "Home":
+                    _viewModel.CurrentViewModel = new HomeWindowModel();
+                    break;
+                case "Privilges":
+                    _viewModel.CurrentViewModel = new PrivilgesViewModel();
+                    break;
             }
         }
     }

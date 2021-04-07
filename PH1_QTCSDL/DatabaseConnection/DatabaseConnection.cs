@@ -60,5 +60,14 @@ namespace PH1_QTCSDL
             return dt;
         }
 
+        public OracleCommand CreateCommand(string command)
+        {
+            OracleCommand cmd = _conn.CreateCommand();
+            cmd.CommandText = command;
+            cmd.CommandType = CommandType.Text;
+
+            return cmd;
+        }
+
     }
 }
