@@ -34,7 +34,8 @@
                     <ListView Margin="0 15" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListViewItem HorizontalAlignment="Center" Margin="0 10">
                             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black">
+                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="Home">
                                 <StackPanel Margin="-5">
                                     <materialDesign:PackIcon Kind="TabletDashboard"/>
                                 </StackPanel>
@@ -67,9 +68,10 @@
                         </ListViewItem>
                         <ListViewItem HorizontalAlignment="Center" Margin="0 10">
                             <Button Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black">
+                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="Privilges">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="ChatOutline"/>
+                                    <materialDesign:PackIcon Kind="QuestionMark"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
@@ -98,6 +100,10 @@
 
                 <DataTemplate DataType="{x:Type viewmodels:HomeWindowModel}">
                     <views:HomeView></views:HomeView>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:PrivilgesViewModel}">
+                    <views:Privilges></views:Privilges>
                 </DataTemplate>
 
 
