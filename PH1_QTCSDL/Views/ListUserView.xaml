@@ -39,9 +39,9 @@
             DisplayMemberPath="DisplayName"
             SelectedValuePath="SelectedValue"
         ></ComboBox>
-        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="46" Height="30"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="86,260,0,0" VerticalAlignment="Top" Width="54" Height="30" Click="btnUpdate_Click"/>
-        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="170,260,0,0" VerticalAlignment="Top" Width="52" Height="30" Click="btnDelete_Click"/>
-        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="248,260,0,0" VerticalAlignment="Top" Width="50" Height="30" Click="btnReset_Click"/>
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="60" Height="30"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="81,260,0,0" VerticalAlignment="Top" Width="79" Height="30" Click="btnUpdate_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="172,260,0,0" VerticalAlignment="Top" Width="76" Height="30" Click="btnDelete_Click"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="261,260,0,0" VerticalAlignment="Top" Width="71" Height="30" Click="btnReset_Click"/>
     </Grid>
 </UserControl>

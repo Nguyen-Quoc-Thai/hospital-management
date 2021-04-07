@@ -114,6 +114,7 @@ namespace PH1_QTCSDL.Views
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             String sql = "INSERT INTO NHANVIEN(MANV, HOTEN, LUONG, VAITRO, DONVI) VALUES (:MANV, :HOTEN, :LUONG, :VAITRO, :DONVI)";
+
             this.AUD(sql, 0);
             btnAdd.IsEnabled = false;
             btnUpdate.IsEnabled = true;
@@ -148,9 +149,7 @@ namespace PH1_QTCSDL.Views
         private void AUD(String sql_stmt, int state)
         {
             String msg = "";
-            OracleCommand cmd = conn.CreateCommand();
-            cmd.CommandText = sql_stmt;
-            cmd.CommandType = CommandType.Text;
+            OracleCommand cmd = db.CreateCommand(sql_stmt);
 
             switch (state)
             {
@@ -160,7 +159,7 @@ namespace PH1_QTCSDL.Views
 
                         cmd.Parameters.Add("MANV", OracleDbType.Varchar2, 8).Value = txtbxMaNV.Text;
                         cmd.Parameters.Add("HOTEN", OracleDbType.NVarchar2, 30).Value = txtbxName.Text;
-                        cmd.Parameters.Add("LUONG", OracleDbType.Int32, 6).Value = Int32.Parse(txtbxSalary.Text);
+                        cmd.Parameters.Add("LUONG", OracleDbType.Int32 , 6).Value = Int32.Parse(txtbxSalary.Text);
                         cmd.Parameters.Add("VAITRO", OracleDbType.NVarchar2, 20).Value = cbbPositions.SelectedValue;
                         cmd.Parameters.Add("DONVI", OracleDbType.NVarchar2, 20).Value = cbbDepartments.SelectedValue;
 
