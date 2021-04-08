@@ -33,6 +33,9 @@ namespace PH1_QTCSDL.Command
                 case "Privilges":
                     _viewModel.CurrentViewModel = new PrivilgesViewModel();
                     break;
+                case "ListUserGrant":
+                    _viewModel.CurrentViewModel = new ListUserGrantViewModel();
+                    break;
             }
         }
     }
