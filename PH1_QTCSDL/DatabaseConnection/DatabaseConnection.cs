@@ -27,6 +27,12 @@ namespace PH1_QTCSDL
 
         private OracleConnection _conn = null;
         private OracleDataReader _dr = null;
+
+        public OracleConnection Conn   // property
+        {
+            get { return _conn; }   // get method
+        }
+
         public OracleDatabase(string path)
         {
             string connectConfig = System.IO.File.ReadAllText(path);

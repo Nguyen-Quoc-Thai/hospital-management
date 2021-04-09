@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Oracle.ManagedDataAccess;
 using Oracle.ManagedDataAccess.Client;
 
 namespace PH1_QTCSDL.Views
@@ -16,6 +17,7 @@ namespace PH1_QTCSDL.Views
         OracleConnection conn = null;
         OracleDatabase db;
 
+        private object _currRow = null;
         public GrantOnRole()
         {
             InitializeComponent();
@@ -238,9 +240,47 @@ namespace PH1_QTCSDL.Views
             }
         }
 
+        private void revokeClick2(object sender, RoutedEventArgs e)
+        {
+            DataRowView dr = priviList.SelectedItem as DataRowView;
+
+            if (_currRow == null)
+            {
+                MessageBox.Show("Chọn một dòng trong table 2 để thu hồi!");
+            }
+            else
+            {
+                // Call store proc
+                OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = dr[2].ToString();
+                cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = dr[3].ToString();
+                cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr[0].ToString();
+
+                cmd.ExecuteNonQuery();
+
+                // Update view
+                this.roleList_SelectionChanged(_currRow, null);
+
+                MessageBox.Show("Revoke privilege success!");
+            }
+        }
+
         private void roleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            DataGrid dg = sender as DataGrid;
+            DataRowView dr = dg.SelectedItem as DataRowView;
+
+            var sql = "SELECT GRANTEE, OWNER, TABLE_NAME GRANTOR, PRIVILEGE, GRANTABLE FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
+
+            DataTable dt = db.Query(sql);
+            priviList.ItemsSource = dt.DefaultView;
+        }
+
+        private void priviList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this._currRow = sender;
         }
     }
 }
