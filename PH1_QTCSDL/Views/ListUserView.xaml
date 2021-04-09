@@ -12,10 +12,10 @@
         <DataGrid IsReadOnly="True" x:Name="myDataGrid" Margin="366,0,10,0" Height="430" VerticalAlignment="Center" SelectionChanged="myDataGrid_SelectionChanged"/>
 
         <Label Content="Tên Người dùng" HorizontalAlignment="Left" Margin="15,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="txtbxUsername" HorizontalAlignment="Left" Margin="126,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
+        <TextBox x:Name="txtbxUsername" HorizontalAlignment="Left" Margin="126,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" TextChanged="txtbxUsername_TextChanged"/>
 
         <Label Content="Mật khẩu" HorizontalAlignment="Left" Margin="21,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="txtbxPassword" HorizontalAlignment="Left" Margin="126,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
+        <TextBox x:Name="txtbxPassword" HorizontalAlignment="Left" Margin="126,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" TextChanged="txtbxPassword_TextChanged"/>
 
         <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="60" Height="30"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="81,182,0,0" VerticalAlignment="Top" Width="79" Height="30" Click="btnUpdate_Click"/>

@@ -34,6 +34,8 @@ namespace PH1_QTCSDL.Views
         private void Window_Loaded()
         {
             db = OracleDatabase.Instance;
+            OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
+            cmd.ExecuteNonQuery();
             this.UpdateDataGrid();
         }
 
@@ -71,12 +73,43 @@ namespace PH1_QTCSDL.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            var sql = "CREATE ROLE " + txtbxVaitro.Text;
+            if (txtbxPassword.Text.Trim() != "")
+                sql += " IDENTIFIED BY " + txtbxPassword.Text.Trim();
 
+            try
+            {
+                db.Query(sql);
+                MessageBox.Show("Thêm thành công");
+                this.UpdateDataGrid();
+            }
+            catch
+            {
+                MessageBox.Show("Không thể tạo role");
+            }
+
+            btnUpdate.IsEnabled = true;
+            btnUpdate.IsEnabled = false;
+            btnDelete.IsEnabled = false;
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            string sql = "";
+            if (txtbxPassword.Text.Trim() != "")
+            {
+                sql = "ALTER ROLE " + txtbxVaitro.Text + " IDENTIFIED BY " + txtbxPassword.Text;
+            }
+            try
+            {
+                db.Query(sql);
+                MessageBox.Show("Update thành công");
+                this.UpdateDataGrid();
+            }
+            catch
+            {
+                MessageBox.Show("Không thể chỉnh sửa user");
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -90,7 +123,7 @@ namespace PH1_QTCSDL.Views
 
 
                     string sql = "DROP ROLE " + dr["ROLE"];
-                    MessageBox.Show(sql);
+                    MessageBox.Show("Xoá thành công");
 
                     db.Query(sql);
 
@@ -106,10 +139,28 @@ namespace PH1_QTCSDL.Views
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             txtbxVaitro.Text = "";
+            txtbxPassword.Text = "";
             
             btnAdd.IsEnabled = true;
             btnUpdate.IsEnabled = false;
             btnDelete.IsEnabled = false;
+        }
+
+        private void txtbxVaitro_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.EnableClickBtn();
+        }
+
+        private void txtbxPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.EnableClickBtn();
+        }
+        private void EnableClickBtn()
+        {
+            btnAdd.IsEnabled = true;
+            btnUpdate.IsEnabled = true;
+            btnDelete.IsEnabled = true;
+            btnReset.IsEnabled = true;
         }
     }
 }

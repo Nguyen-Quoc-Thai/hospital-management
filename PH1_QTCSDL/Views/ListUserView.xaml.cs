@@ -1,4 +1,5 @@
 ﻿using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -34,7 +35,8 @@ namespace PH1_QTCSDL.Views
         private void Window_Loaded()
         {
             db = OracleDatabase.Instance;
-
+            OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
+            cmd.ExecuteNonQuery();
             this.UpdateDataGrid();
         }
 
@@ -51,14 +53,18 @@ namespace PH1_QTCSDL.Views
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var sql = "CREATE USER " + txtbxUsername;
+            var sql = "CREATE USER " + txtbxUsername.Text;
             if (txtbxPassword.Text.Trim() != "")
                 sql += " IDENTIFIED BY " + txtbxPassword.Text.Trim();
 
             try
             {
-                DataTable dt = db.Query(sql);
-                MessageBox.Show(dt.ToString());
+                //OracleCommand cmd = db.CreateCommand(sql);
+                //cmd.ExecuteNonQuery();
+
+                db.Query(sql);
+                MessageBox.Show("Thêm thành công");
+                this.UpdateDataGrid();
             }
             catch
             {
@@ -86,8 +92,9 @@ namespace PH1_QTCSDL.Views
             var sql = "DROP USER " + txtbxUsername.Text;
             try
             {
-                MessageBox.Show(sql);
                 db.Query(sql);
+                MessageBox.Show("Xóa thành công");
+                this.UpdateDataGrid();
             }
             catch
             {
@@ -104,8 +111,9 @@ namespace PH1_QTCSDL.Views
             }    
             try
             {
-                MessageBox.Show(sql);
                 db.Query(sql);
+                MessageBox.Show("Update thành công");
+                this.UpdateDataGrid();
             }
             catch
             {
@@ -156,6 +164,24 @@ namespace PH1_QTCSDL.Views
                 btnUpdate.IsEnabled = true;
                 btnDelete.IsEnabled = true;
             }
+        }
+
+        private void txtbxUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.EnableClickBtn();
+        }
+
+        private void txtbxPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.EnableClickBtn();
+        }
+
+        private void EnableClickBtn ()
+        {
+            btnAdd.IsEnabled = true;
+            btnUpdate.IsEnabled = true;
+            btnDelete.IsEnabled = true;
+            btnReset.IsEnabled = true;
         }
     }
 }
