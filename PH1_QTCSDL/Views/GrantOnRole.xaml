@@ -11,7 +11,10 @@
         <DataGrid x:Name="roleList" 
                   IsReadOnly="True"
                   SelectionChanged="roleList_SelectionChanged"
-                  VerticalAlignment="Top" Height="440" Margin="400,10,2,0" />
+                  VerticalAlignment="Top" Height="250" Margin="400,10,10,0" />
+        <DataGrid x:Name="priviList" 
+                  IsReadOnly="True"
+                  VerticalAlignment="Top" Height="161" Margin="400,279,10,0" SelectionChanged="priviList_SelectionChanged" />
         <Label Content="Bảng" HorizontalAlignment="Left" Margin="49,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
         <ComboBox
             x:Name="cbbTables"
@@ -59,14 +62,14 @@
                 Content="Cho phép người được cấp quyền &#xA;có thể cấp quyền cho role khác" 
                 Margin="32,159,538,0" />
 
-        <Button Margin="42,360,658,58"
+        <Button Margin="36,376,664,42"
             Width="100"
             Click="grantClick">
             Cấp quyền
         </Button>
-        <Button Margin="192,360,508,58"
+        <Button Margin="182,376,518,42"
             Width="100"
-            Click="revokeClick">
+            Click="revokeClick2">
             Thu hồi
         </Button>
     </Grid>
