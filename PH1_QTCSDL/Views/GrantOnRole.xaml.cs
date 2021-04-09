@@ -199,6 +199,29 @@ namespace PH1_QTCSDL.Views
                 if (privileges.EndsWith(","))
                     privileges = privileges.Remove(privileges.Length - 1, 1);
                 MessageBox.Show("GRANT " + privileges + " ON " + cbbTables.Text + " TO " + dr["ROLE"]);
+
+                try
+                {
+                    string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
+
+                    OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
+                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
+                    cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["ROLE"];
+                    cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
+
+                    cmd.ExecuteNonQuery();
+
+                    //this.roleList_SelectionChanged(_currRow, null);
+
+                    MessageBox.Show("Grant privilege success!");
+                }
+                catch
+                {
+                    MessageBox.Show("fail to grant");
+                }
             }
             else
             {

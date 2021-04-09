@@ -11,7 +11,13 @@
         <DataGrid x:Name="userList" 
                   IsReadOnly="True"
                   SelectionChanged="userList_SelectionChanged"
-                  VerticalAlignment="Top" Height="440" Margin="379,0,0,0" />
+                  VerticalAlignment="Top" Height="220" Margin="369,0,0,0" />
+
+        <DataGrid x:Name="priviList" 
+            IsReadOnly="True"
+            SelectionChanged="priviList_SelectionChanged"
+            VerticalAlignment="Top" Height="224" Margin="369,225,10,0" />
+
         <Label Content="Bảng" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
         <ComboBox
             x:Name="cbbTables"
