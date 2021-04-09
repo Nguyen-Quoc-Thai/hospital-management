@@ -9,7 +9,7 @@
 
     <Grid Background="White">
 
-        <DataGrid x:Name="myDataGrid" Margin="332,10,34,0" Height="404" VerticalAlignment="Top" SelectionChanged="myDataGrid_SelectionChanged"/>
+        <DataGrid IsReadOnly="True" x:Name="myDataGrid" Margin="332,10,34,0" Height="404" VerticalAlignment="Top" SelectionChanged="myDataGrid_SelectionChanged"/>
         <Label Content="Thông tin nhân viên" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,-1.502"/>
         <Label Content="Họ tên" HorizontalAlignment="Left" Margin="14,84,0,0" VerticalAlignment="Top" Width="60"/>
         <Label Content="Mã NV" HorizontalAlignment="Left" Margin="12,52,0,0" VerticalAlignment="Top" Width="62"/>

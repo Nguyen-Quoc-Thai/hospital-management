@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PH1_QTCSDL.ViewModels
 {
-    class ListUserGrantViewModel : BaseViewModel
+    class ListRoleViewModel : BaseViewModel
     {
 
     }

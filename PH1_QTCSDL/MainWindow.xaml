@@ -50,8 +50,17 @@
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
+                        <ListViewItem HorizontalAlignment="Center" Margin="0">
+                            <Button ToolTip="Danh sách vai trò (role)" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
+                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                 Command="{Binding UpdateViewCommand}" CommandParameter="ListRole">
+                                <StackPanel Margin="-5">
+                                    <materialDesign:PackIcon Kind="Man"/>
+                                </StackPanel>
+                            </Button>
+                        </ListViewItem>
                         <ListViewItem HorizontalAlignment="Center" Margin="0 10">
-                            <Button ToolTip="Cấp/Thu hồi Quyền" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
+                            <Button ToolTip="Cấp/Thu hồi Quyền người dùng" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                     Command="{Binding UpdateViewCommand}" CommandParameter="ListUserGrant">
                                 <StackPanel Margin="-5">
@@ -60,8 +69,9 @@
                             </Button>
                         </ListViewItem>
                         <ListViewItem HorizontalAlignment="Center" Margin="0">
-                            <Button Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black">
+                            <Button ToolTip="Cấp/Thu hồi Quyền vai trò" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
+                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                Command="{Binding UpdateViewCommand}" CommandParameter="ListRoleGrant">
                                 <StackPanel Margin="-5">
                                     <materialDesign:PackIcon Kind="EqualiserVertical"/>
                                 </StackPanel>
@@ -84,23 +94,22 @@
             </Grid>
         </materialDesign:Card>
 
-
-
-
-
-
-
-
-
-
         <ContentControl Content="{Binding CurrentViewModel}" Margin="105,0,16,0" >
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:ListUserViewModel}">
                     <views:ListUserView></views:ListUserView>
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type viewmodels:ListUserGrantViewModel}">
-                    <views:Grant></views:Grant>
+                <DataTemplate DataType="{x:Type viewmodels:ListRoleViewModel}">
+                    <views:ListRoleView></views:ListRoleView>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:GrantOnUserViewModel}">
+                    <views:GrantOnUser></views:GrantOnUser>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type viewmodels:GrantOnRoleViewModel}">
+                    <views:GrantOnRole></views:GrantOnRole>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type viewmodels:HomeWindowModel}">
