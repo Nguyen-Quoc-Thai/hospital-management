@@ -45,7 +45,7 @@ namespace PH1_QTCSDL.Views
         private void UpdateDataGrid()
         {
             DataTable dt = db.Query("SELECT * FROM DBA_ROLES");
-            myDataGrid.ItemsSource = dt.DefaultView;
+            roleList.ItemsSource = dt.DefaultView;
         }
 
         private void myDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,7 +81,26 @@ namespace PH1_QTCSDL.Views
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            DataRowView dr = roleList.SelectedItem as DataRowView;
 
+            if (dr != null)
+            {
+                try
+                {
+
+
+                    string sql = "DROP ROLE " + dr["ROLE"];
+                    MessageBox.Show(sql);
+
+                    db.Query(sql);
+
+                    this.UpdateDataGrid();
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể xóa role");
+                }
+            }
         }
 
         private void btnReset_Click(object sender, RoutedEventArgs e)

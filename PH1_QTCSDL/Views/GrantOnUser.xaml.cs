@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Oracle.ManagedDataAccess.Client;
 
 namespace PH1_QTCSDL.Views
 {
@@ -13,6 +14,8 @@ namespace PH1_QTCSDL.Views
     public partial class GrantOnUser : UserControl
     {
         OracleDatabase db;
+
+        private object _currRow = null;
 
         public GrantOnUser()
         {
@@ -30,7 +33,7 @@ namespace PH1_QTCSDL.Views
 
         private void UpdateDataGrid()
         {
-            DataTable dt = db.Query("SELECT MANV, HOTEN, LUONG, VAITRO, DONVI FROM NHANVIEN ORDER BY MANV DESC");
+            DataTable dt = db.Query("SELECT * FROM all_users");
             userList.ItemsSource = dt.DefaultView;
         }
 
@@ -152,7 +155,7 @@ namespace PH1_QTCSDL.Views
             }
             return 0;
         }
-
+        
         private string GetCheckedColumns()
         {
             // dieu kien check cac column
@@ -201,13 +204,22 @@ namespace PH1_QTCSDL.Views
                 privileges = privileges.Trim();
                 if (privileges.EndsWith(","))
                     privileges = privileges.Remove(privileges.Length - 1, 1);
-                MessageBox.Show("GRANT " + privileges + " ON " + cbbTables.Text + " TO " + dr["HOTEN"]);
 
                 try
                 {
                     string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
-                    string proc = "GRANT_PRIVILEGES_TO(" + cbbTables.Text + ", " + "str_priv = " + privileges + ", " + dr["HOTEN"] + ", " + withGrant + ")";
-                    db.Query(proc);
+                    //string proc = "GRANT_PRIVILEGES_TO('" + cbbTables.Text + "', " + "'" + privileges + "'" + ", '" + dr["USERNAME"] + "', '" + withGrant + "')";
+                    //MessageBox.Show(proc);
+                    //db.Query(proc);
+                    OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
+                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
+                    cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["USERNAME"];
+                    cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
+
+                    cmd.ExecuteNonQuery();
                 }
                 catch
                 {
@@ -220,48 +232,82 @@ namespace PH1_QTCSDL.Views
             }
         }
 
+        //private void revokeClick(object sender, RoutedEventArgs e)
+        //{
+        //    string checkedColumns = this.GetCheckedColumns();
+        //    MessageBox.Show("Checked Columns: " + checkedColumns);
+
+        //    if (this.checkSubmit() == -1)
+        //        return;
+
+        //    DataRowView dr = userList.SelectedItem as DataRowView;
+
+        //    if (dr != null)
+        //    {
+        //        // GRANT....
+        //        string privileges = "";
+        //        if (grantSelect.IsChecked == true)
+        //            privileges += "SELECT, ";
+        //        if (grantUpdate.IsChecked == true)
+        //            privileges += "UPDATE, ";
+        //        if (grantInsert.IsChecked == true)
+        //            privileges += "INSERT, ";
+        //        if (grantDelete.IsChecked == true)
+        //            privileges += "DELETE ";
+
+        //        privileges = privileges.Trim();
+        //        if (privileges.EndsWith(","))
+        //            privileges = privileges.Remove(privileges.Length - 1, 1);
+
+        //        try
+        //        {
+        //            //string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
+        //            //string proc = "REVOKE_PRIVILEGES_FROM(" + cbbTables.Text + ", " + "'" + privileges + "'" + ", " + dr["USERNAME"] + ")";
+        //            //db.Query(proc);
+        //            OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+
+        //            cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
+        //            cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
+        //            cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["USERNAME"];
+
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch
+        //        {
+        //            MessageBox.Show("fail to revoke");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Chọn một người dùng!");
+        //    }
+        //}
+
         private void revokeClick(object sender, RoutedEventArgs e)
         {
-            string checkedColumns = this.GetCheckedColumns();
-            MessageBox.Show("Checked Columns: " + checkedColumns);
+            DataRowView dr = priviList.SelectedItem as DataRowView;
 
-            if (this.checkSubmit() == -1)
-                return;
-
-            DataRowView dr = userList.SelectedItem as DataRowView;
-
-            if (dr != null)
+            if (_currRow == null)
             {
-                // GRANT....
-                string privileges = "";
-                if (grantSelect.IsChecked == true)
-                    privileges += "SELECT, ";
-                if (grantUpdate.IsChecked == true)
-                    privileges += "UPDATE, ";
-                if (grantInsert.IsChecked == true)
-                    privileges += "INSERT, ";
-                if (grantDelete.IsChecked == true)
-                    privileges += "DELETE ";
-
-                privileges = privileges.Trim();
-                if (privileges.EndsWith(","))
-                    privileges = privileges.Remove(privileges.Length - 1, 1);
-                MessageBox.Show("REVOKE " + privileges + " ON " + cbbTables.Text + " FROM " + dr["HOTEN"]);
-
-                try
-                {
-                    string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
-                    string proc = "REVOKE_PRIVILEGES_FROM(" + cbbTables.Text + ", " + "str_priv = " + privileges + ", " + dr["HOTEN"] + ")";
-                    db.Query(proc);
-                }
-                catch
-                {
-                    MessageBox.Show("fail to revoke");
-                }
+                MessageBox.Show("Chọn một dòng trong table 2 để thu hồi!");
             }
             else
             {
-                MessageBox.Show("Chọn một người dùng!");
+                // Call store proc
+                OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = dr[4].ToString();
+                cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = dr[3].ToString();
+                cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr[0].ToString();
+
+                cmd.ExecuteNonQuery();
+
+                // Update view
+                this.userList_SelectionChanged(_currRow, null);
+
+                MessageBox.Show("Revoke privilege success!");
             }
         }
 
@@ -269,6 +315,16 @@ namespace PH1_QTCSDL.Views
         {
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
+
+            var sql = "SELECT GRANTEE, OWNER, TABLE_NAME GRANTOR, PRIVILEGE, TABLE_NAME, GRANTABLE FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
+            
+            DataTable dt = db.Query(sql);
+            priviList.ItemsSource = dt.DefaultView;
+        }
+
+        private void priviList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this._currRow = sender;
         }
     }
 }
