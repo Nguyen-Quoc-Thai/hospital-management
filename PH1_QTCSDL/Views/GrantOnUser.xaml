@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="PH1_QTCSDL.Views.GrantOnUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PH1_QTCSDL.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="White">
+        <DataGrid x:Name="userList" 
+                  IsReadOnly="True"
+                  SelectionChanged="userList_SelectionChanged"
+                  VerticalAlignment="Top" Height="440" Margin="379,0,0,0" />
+        <Label Content="Bảng" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <ComboBox
+            x:Name="cbbTables"
+            SelectionChanged="cbbTables_SelectionChanged"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="160" 
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="132,45,0,0"
+            DisplayMemberPath="DisplayName"
+            SelectedValuePath="SelectedValue"
+        ></ComboBox>
+
+        <StackPanel x:Name="tableColumns" Margin="40,201,484,95">
+        </StackPanel>
+
+        <StackPanel Margin="40,94,460,254">
+            <CheckBox x:Name="allGrantOption"
+                Checked="GrantOptions_CheckedChanged"
+                Unchecked="GrantOptions_CheckedChanged" 
+                Content="Chọn tất cả quyền" Height="22"/>
+            <StackPanel 
+            Orientation="Horizontal" Height="29">
+                <CheckBox x:Name="grantSelect" Width="68" 
+                      Content="Select"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantUpdate" Width="77" 
+                      Content="Update"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantInsert" Width="75" 
+                      Content="Insert"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantDelete" 
+                      Content="Delete" 
+                      Width="71"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+            </StackPanel>
+            <CheckBox x:Name="withGrantOption"
+                Content="Cho phép người được cấp quyền &#xA;có thể cấp quyền cho người dùng khác" 
+                Height="44" />
+        </StackPanel>
+
+        <Button Margin="42,360,658,58"
+            Width="100"
+            Click="grantClick">
+            Cấp quyền
+        </Button>
+        <Button Margin="192,360,508,58"
+            Width="100"
+            Click="revokeClick">
+            Thu hồi
+        </Button>
+    </Grid>
+</UserControl>
