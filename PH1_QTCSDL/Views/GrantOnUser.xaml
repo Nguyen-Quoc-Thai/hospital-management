@@ -8,17 +8,19 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="White">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Thao tác quyền trên User" Margin="172,8,300,402"></TextBlock>
+
         <DataGrid x:Name="userList" 
                   IsReadOnly="True"
                   SelectionChanged="userList_SelectionChanged"
-                  VerticalAlignment="Top" Height="220" Margin="369,0,0,0" />
-
+                  VerticalAlignment="Top" Height="190" Margin="369,46,0,0" />
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"  x:Name="table2_title" Margin="369,248,0,0" Width="421"/>
         <DataGrid x:Name="priviList" 
             IsReadOnly="True"
             SelectionChanged="priviList_SelectionChanged"
-            VerticalAlignment="Top" Height="224" Margin="369,225,10,0" />
+            VerticalAlignment="Top" Height="174" Margin="369,275,10,0" />
 
-        <Label Content="Bảng" HorizontalAlignment="Left" Margin="42,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <Label Content="Bảng" HorizontalAlignment="Left" Margin="42,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
         <ComboBox
             x:Name="cbbTables"
             SelectionChanged="cbbTables_SelectionChanged"
@@ -26,15 +28,15 @@
             VerticalAlignment="Top"
             Width="160" 
             HorizontalContentAlignment="Stretch"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="132,45,0,0"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="132,51,0,0"
             DisplayMemberPath="DisplayName"
             SelectedValuePath="SelectedValue"
         ></ComboBox>
 
-        <StackPanel x:Name="tableColumns" Margin="40,201,484,95">
+        <StackPanel x:Name="tableColumns" Margin="40,207,484,89">
         </StackPanel>
 
-        <StackPanel Margin="40,94,460,254">
+        <StackPanel Margin="40,100,460,248">
             <CheckBox x:Name="allGrantOption"
                 Checked="GrantOptions_CheckedChanged"
                 Unchecked="GrantOptions_CheckedChanged" 
@@ -64,12 +66,12 @@
                 Height="44" />
         </StackPanel>
 
-        <Button Margin="42,360,658,58"
+        <Button Margin="42,366,658,52"
             Width="100"
             Click="grantClick">
             Cấp quyền
         </Button>
-        <Button Margin="192,360,508,58"
+        <Button Margin="192,366,508,52"
             Width="100"
             Click="revokeClick">
             Thu hồi

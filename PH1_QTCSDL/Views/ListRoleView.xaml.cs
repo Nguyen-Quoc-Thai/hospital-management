@@ -25,10 +25,8 @@ namespace PH1_QTCSDL.Views
         OracleDatabase db;
         public ListRoleView()
         {
-            //this.setConnection();
             InitializeComponent();
             Window_Loaded();
-            //DataContext = new MainWindow();
         }
 
         private void Window_Loaded()
@@ -58,12 +56,6 @@ namespace PH1_QTCSDL.Views
             if (dr != null)
             {
                 txtbxVaitro.Text = dr["ROLE"].ToString();
-
-                // Read DB
-                //OracleCommand cmd = conn.CreateCommand();
-                //cmd.CommandText = "SELECT DV.MADV, DV.TENDV, VT.MAVAITRO, VT.VAITRO FROM NHANVIEN NV, DONVI DV, VAITRO VT WHERE NV.DONVI=DV.MADV AND NV.VAITRO=VT.MAVAITRO";
-                //cmd.CommandType = CommandType.Text;
-                //OracleDataReader odr = cmd.ExecuteReader();
 
                 btnAdd.IsEnabled = false;
                 btnUpdate.IsEnabled = true;
@@ -108,7 +100,7 @@ namespace PH1_QTCSDL.Views
             }
             catch
             {
-                MessageBox.Show("Không thể chỉnh sửa user");
+                MessageBox.Show("Không thể chỉnh sửa role");
             }
         }
 
@@ -120,8 +112,6 @@ namespace PH1_QTCSDL.Views
             {
                 try
                 {
-
-
                     string sql = "DROP ROLE " + dr["ROLE"];
                     MessageBox.Show("Xoá thành công");
 

@@ -26,7 +26,7 @@ namespace PH1_QTCSDL.Views
         private void Window_Loaded()
         {
             db = OracleDatabase.Instance;
-
+            OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
             this.UpdateDataGrid();
             this.LoadCombobox();
         }
@@ -40,20 +40,10 @@ namespace PH1_QTCSDL.Views
         private void LoadCombobox()
         {
             List<Combobox> TableList = new List<Combobox>();
-            //TableList.Add(new Combobox()
-            //{
-            //    DisplayName = "Nhân Viên",
-            //    SelectedValue = "NHANVIEN"
-            //});
-            //TableList.Add(new Combobox()
-            //{
-            //    DisplayName = "Chấm Công",
-            //    SelectedValue = "CHAMCONG"
-            //});
-            // ......
 
             //DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
-            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
+            //DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
+            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE (REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
             List<DataRow> dataRows_pos = dt1.GetRows();
             
             try
@@ -181,9 +171,6 @@ namespace PH1_QTCSDL.Views
 
         private void grantClick(object sender, RoutedEventArgs e)
         {
-            string checkedColumns = this.GetCheckedColumns();
-            MessageBox.Show("Checked Columns: " + checkedColumns);
-
             if (this.checkSubmit() == -1)
                 return;
 
@@ -206,24 +193,27 @@ namespace PH1_QTCSDL.Views
                 if (privileges.EndsWith(","))
                     privileges = privileges.Remove(privileges.Length - 1, 1);
 
+                string tb_name = cbbTables.Text;
+                string checkedColumns = this.GetCheckedColumns();
+                if (checkedColumns != "")
+                    tb_name += "(" + checkedColumns + ")";
+
+                MessageBox.Show(tb_name);
                 try
                 {
-                    string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
-                    //string proc = "GRANT_PRIVILEGES_TO('" + cbbTables.Text + "', " + "'" + privileges + "'" + ", '" + dr["USERNAME"] + "', '" + withGrant + "')";
-                    //MessageBox.Show(proc);
-                    //db.Query(proc);
+                    char withGrant = withGrantOption.IsChecked == true ? 'T' : 'F';
                     OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
                     cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
-                    cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["USERNAME"];
+                    cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
                     cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
 
                     cmd.ExecuteNonQuery();
 
                     // Update view
-                    this.userList_SelectionChanged(_currRow, null);
+                    //this.userList_SelectionChanged(userList, null);
 
                     MessageBox.Show("Grant thành công");
                 }
@@ -322,6 +312,7 @@ namespace PH1_QTCSDL.Views
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
 
+            table2_title.Text = "Danh sách quyền của user " + dr[0].ToString();
             var sql = "SELECT GRANTEE, OWNER, TABLE_NAME GRANTOR, PRIVILEGE, TABLE_NAME, GRANTABLE FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
             
             DataTable dt = db.Query(sql);

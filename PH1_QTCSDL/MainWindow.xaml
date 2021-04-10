@@ -37,7 +37,7 @@
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                 Command="{Binding UpdateViewCommand}" CommandParameter="Home">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="TabletDashboard"/>
+                                    <materialDesign:PackIcon Kind="Home"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
@@ -55,7 +55,7 @@
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                  Command="{Binding UpdateViewCommand}" CommandParameter="ListRole">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="Man"/>
+                                    <materialDesign:PackIcon Kind="DriversLicense"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
@@ -64,7 +64,7 @@
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                     Command="{Binding UpdateViewCommand}" CommandParameter="ListUserGrant">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="CalendarBlankOutline"/>
+                                    <materialDesign:PackIcon Kind="PersonArrowLeft"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>
@@ -73,7 +73,7 @@
                              BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                 Command="{Binding UpdateViewCommand}" CommandParameter="ListRoleGrant">
                                 <StackPanel Margin="-5">
-                                    <materialDesign:PackIcon Kind="EqualiserVertical"/>
+                                    <materialDesign:PackIcon Kind="PersonBadge"/>
                                 </StackPanel>
                             </Button>
                         </ListViewItem>

@@ -27,6 +27,7 @@ namespace PH1_QTCSDL.Views
         private void Window_Loaded()
         {
             db = OracleDatabase.Instance;
+            OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
             this.LoadRoles();
             this.LoadCombobox();
         }
@@ -47,7 +48,8 @@ namespace PH1_QTCSDL.Views
             List<Combobox> TableList = new List<Combobox>();
 
             //DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
-            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
+            //DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
+            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE (REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
             List<DataRow> dataRows_pos = dt1.GetRows();
 
             try
@@ -175,9 +177,6 @@ namespace PH1_QTCSDL.Views
 
         private void grantClick(object sender, RoutedEventArgs e)
         {
-            string checkedColumns = this.GetCheckedColumns();
-            MessageBox.Show("Checked Columns: " + checkedColumns);
-
             if (this.checkSubmit() == -1)
                 return;
 
@@ -201,14 +200,20 @@ namespace PH1_QTCSDL.Views
                     privileges = privileges.Remove(privileges.Length - 1, 1);
                 MessageBox.Show("GRANT " + privileges + " ON " + cbbTables.Text + " TO " + dr["ROLE"]);
 
+                string tb_name = cbbTables.Text;
+                string checkedColumns = this.GetCheckedColumns();
+                if (checkedColumns != "")
+                    tb_name += "(" + checkedColumns + ")";
+
+                char withGrant = withGrantOption.IsChecked == true ? 'T' : 'F';
+
                 try
                 {
-                    string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
 
                     OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
                     cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
                     cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["ROLE"];
                     cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
@@ -216,7 +221,7 @@ namespace PH1_QTCSDL.Views
                     cmd.ExecuteNonQuery();
 
                     // Update view
-                    this.roleList_SelectionChanged(_currRow, null);
+                    //this.roleList_SelectionChanged(roleList, null);
 
                     MessageBox.Show("Grant privilege success!");
                 }
@@ -296,6 +301,7 @@ namespace PH1_QTCSDL.Views
             DataGrid dg = sender as DataGrid;
             DataRowView dr = dg.SelectedItem as DataRowView;
 
+            table2_title.Text = "Danh sách quyền của role " + dr[0].ToString();
             var sql = "SELECT GRANTEE, OWNER, TABLE_NAME GRANTOR, PRIVILEGE, GRANTABLE FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
 
             DataTable dt = db.Query(sql);

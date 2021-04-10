@@ -8,8 +8,9 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="White">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Danh sách Vai trò (Role)" Margin="172,8,300,402"></TextBlock>
 
-        <DataGrid IsReadOnly="True" x:Name="roleList" Margin="354,0,0,0" Height="430" VerticalAlignment="Center" SelectionChanged="myDataGrid_SelectionChanged"/>
+        <DataGrid IsReadOnly="True" x:Name="roleList" Margin="354,60,0,0" Height="357" VerticalAlignment="Top" SelectionChanged="myDataGrid_SelectionChanged"/>
 
         <Label Content = "Vai trò" HorizontalAlignment="Left" Margin="38,61,0,0" VerticalAlignment="Top" Width="60"/>
         <TextBox x:Name="txtbxVaitro" HorizontalAlignment="Left" Margin="114,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" TextChanged="txtbxVaitro_TextChanged"/>
