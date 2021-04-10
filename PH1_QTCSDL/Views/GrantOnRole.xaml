@@ -8,13 +8,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid Background="White">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Thao tác quyền trên Role" Margin="172,8,300,402"></TextBlock>
+
         <DataGrid x:Name="roleList" 
                   IsReadOnly="True"
                   SelectionChanged="roleList_SelectionChanged"
-                  VerticalAlignment="Top" Height="250" Margin="400,10,10,0" />
+                  VerticalAlignment="Top" Height="180" Margin="394,48,10,0" />
+
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"  x:Name="table2_title" Margin="394,241,0,0" Width="396" Height="22"/>
         <DataGrid x:Name="priviList" 
                   IsReadOnly="True"
-                  VerticalAlignment="Top" Height="161" Margin="400,279,10,0" SelectionChanged="priviList_SelectionChanged" />
+                  VerticalAlignment="Top" Height="176" Margin="394,268,10,0" SelectionChanged="priviList_SelectionChanged" />
         <Label Content="Bảng" HorizontalAlignment="Left" Margin="49,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
         <ComboBox
             x:Name="cbbTables"
@@ -62,12 +66,12 @@
                 Content="Cho phép người được cấp quyền &#xA;có thể cấp quyền cho role khác" 
                 Margin="32,159,538,0" />
 
-        <Button Margin="36,376,664,42"
+        <Button Margin="36,368,664,50"
             Width="100"
             Click="grantClick">
             Cấp quyền
         </Button>
-        <Button Margin="182,376,518,42"
+        <Button Margin="182,368,518,50"
             Width="100"
             Click="revokeClick2">
             Thu hồi

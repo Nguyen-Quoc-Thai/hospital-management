@@ -26,10 +26,8 @@ namespace PH1_QTCSDL.Views
         OracleDatabase db;
         public ListUserView()
         {
-            //this.setConnection();
             InitializeComponent();
             Window_Loaded();
-            //DataContext = new MainWindow();
         }
 
         private void Window_Loaded()
@@ -118,36 +116,6 @@ namespace PH1_QTCSDL.Views
             catch
             {
                 MessageBox.Show("Không thể chỉnh sửa user");
-            }
-        }
-
-        private void AUD(String sql_stmt, int state)
-        {
-            String msg = "";
-            OracleCommand cmd = db.CreateCommand(sql_stmt);
-
-            switch (state)
-            {
-                case 2:
-                    {
-                        msg = "Deleted succecssfully!";
-
-                        break;
-                    }
-            }
-
-            try
-            {
-                int n = cmd.ExecuteNonQuery();
-                if (n > 0)
-                {
-                    MessageBox.Show(msg);
-                    this.UpdateDataGrid();
-                }
-            }
-            catch (Exception exp)
-            {
-                throw new Exception("Failed to exec task!");
             }
         }
 
