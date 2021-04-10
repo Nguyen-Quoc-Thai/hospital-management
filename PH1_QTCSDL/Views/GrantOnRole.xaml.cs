@@ -46,7 +46,8 @@ namespace PH1_QTCSDL.Views
         {
             List<Combobox> TableList = new List<Combobox>();
 
-            DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
+            //DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
+            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
             List<DataRow> dataRows_pos = dt1.GetRows();
 
             try
@@ -214,7 +215,8 @@ namespace PH1_QTCSDL.Views
 
                     cmd.ExecuteNonQuery();
 
-                    //this.roleList_SelectionChanged(_currRow, null);
+                    // Update view
+                    this.roleList_SelectionChanged(_currRow, null);
 
                     MessageBox.Show("Grant privilege success!");
                 }
@@ -228,7 +230,6 @@ namespace PH1_QTCSDL.Views
                 MessageBox.Show("Chọn một vai trò!");
             }
         }
-
         private void revokeClick(object sender, RoutedEventArgs e)
         {
             string checkedColumns = this.GetCheckedColumns();

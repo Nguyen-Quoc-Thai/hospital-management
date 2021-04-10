@@ -52,7 +52,8 @@ namespace PH1_QTCSDL.Views
             //});
             // ......
 
-            DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
+            //DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
+            DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
             List<DataRow> dataRows_pos = dt1.GetRows();
             
             try
@@ -220,6 +221,11 @@ namespace PH1_QTCSDL.Views
                     cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
 
                     cmd.ExecuteNonQuery();
+
+                    // Update view
+                    this.userList_SelectionChanged(_currRow, null);
+
+                    MessageBox.Show("Grant thành công");
                 }
                 catch
                 {
