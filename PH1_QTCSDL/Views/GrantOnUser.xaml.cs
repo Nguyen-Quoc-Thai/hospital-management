@@ -96,7 +96,7 @@ namespace PH1_QTCSDL.Views
             {
                 tableColumns.Children.Clear();
                 string tableName = cbbTables.SelectedValue.ToString();
-                string queryString = "SELECT column_name FROM all_tab_columns WHERE table_name = '" + tableName + "'";
+                string queryString = "SELECT DISTINCT column_name FROM all_tab_columns WHERE table_name = '" + tableName + "'";
                 DataTable dt1 = db.Query(queryString);
                 List<DataRow> dataRows_pos = dt1.GetRows();
 
@@ -180,35 +180,51 @@ namespace PH1_QTCSDL.Views
             {
                 // GRANT....
                 string privileges = "";
+                string privileges2 = "";
                 if (grantSelect.IsChecked == true)
-                    privileges += "SELECT, ";
+                    privileges2 += "SELECT, ";
                 if (grantUpdate.IsChecked == true)
-                    privileges += "UPDATE, ";
+                    privileges2 += "UPDATE, ";
                 if (grantInsert.IsChecked == true)
-                    privileges += "INSERT, ";
+                    privileges2 += "INSERT, ";
                 if (grantDelete.IsChecked == true)
-                    privileges += "DELETE ";
+                    privileges2 += "DELETE ";
 
-                privileges = privileges.Trim();
-                if (privileges.EndsWith(","))
-                    privileges = privileges.Remove(privileges.Length - 1, 1);
+                privileges2 = privileges2.Trim();
+                if (privileges2.EndsWith(","))
+                    privileges2 = privileges2.Remove(privileges2.Length - 1, 1);
 
                 string tb_name = cbbTables.Text;
                 string checkedColumns = this.GetCheckedColumns();
                 if (checkedColumns != "")
-                    tb_name += "(" + checkedColumns + ")";
+                    privileges += checkedColumns;
 
-                MessageBox.Show(tb_name);
+                //MessageBox.Show(tb_name);
                 try
                 {
+                    // inseertmax,asc,asc,asc
+                    // Create view
+                    //tb_name IN STRING, v_name IN STRING, str_select IN STRING
+                    String view_name = ("V_" + privileges).Replace(',', '_').Replace(" ", "");
+                    OracleCommand cmd2 = new OracleCommand("CREATE_VIEW_HIDE_COLUMNS", db.Conn);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+
+                    cmd2.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
+                    cmd2.Parameters.Add("v_name", OracleDbType.Varchar2).Value = view_name;
+                    cmd2.Parameters.Add("str_select", OracleDbType.Varchar2).Value = privileges;
+
+                    cmd2.ExecuteNonQuery();
+
+
+                    // Grant view to user
                     char withGrant = withGrantOption.IsChecked == true ? 'T' : 'F';
                     OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
-                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = view_name;
+                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges2;
                     cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
-                    cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
+                    cmd.Parameters.Add("with_grant", OracleDbType.Char).Value = withGrant;
 
                     cmd.ExecuteNonQuery();
 
