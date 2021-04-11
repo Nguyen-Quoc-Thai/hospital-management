@@ -178,40 +178,32 @@ namespace PH1_QTCSDL.Views
 
             if (dr != null)
             {
-                // GRANT....
                 string privileges = "";
-                string privileges2 = "";
                 if (grantSelect.IsChecked == true)
-                    privileges2 += "SELECT, ";
+                    privileges += "SELECT, ";
                 if (grantUpdate.IsChecked == true)
-                    privileges2 += "UPDATE, ";
+                    privileges += "UPDATE, ";
                 if (grantInsert.IsChecked == true)
-                    privileges2 += "INSERT, ";
+                    privileges += "INSERT, ";
                 if (grantDelete.IsChecked == true)
-                    privileges2 += "DELETE ";
+                    privileges += "DELETE ";
 
-                privileges2 = privileges2.Trim();
-                if (privileges2.EndsWith(","))
-                    privileges2 = privileges2.Remove(privileges2.Length - 1, 1);
+                privileges = privileges.Trim();
+                if (privileges.EndsWith(","))
+                    privileges = privileges.Remove(privileges.Length - 1, 1);
 
                 string tb_name = cbbTables.Text;
                 string checkedColumns = this.GetCheckedColumns();
-                if (checkedColumns != "")
-                    privileges += checkedColumns;
 
-                //MessageBox.Show(tb_name);
                 try
                 {
-                    // inseertmax,asc,asc,asc
-                    // Create view
-                    //tb_name IN STRING, v_name IN STRING, str_select IN STRING
-                    String view_name = ("V_" + privileges).Replace(',', '_').Replace(" ", "");
+                    String view_name = ("V_USER_" + tb_name + "_" + privileges).Replace(',', '_').Replace(" ", "");
                     OracleCommand cmd2 = new OracleCommand("CREATE_VIEW_HIDE_COLUMNS", db.Conn);
                     cmd2.CommandType = CommandType.StoredProcedure;
 
                     cmd2.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
                     cmd2.Parameters.Add("v_name", OracleDbType.Varchar2).Value = view_name;
-                    cmd2.Parameters.Add("str_select", OracleDbType.Varchar2).Value = privileges;
+                    cmd2.Parameters.Add("str_select", OracleDbType.Varchar2).Value = checkedColumns;
 
                     cmd2.ExecuteNonQuery();
 
@@ -222,14 +214,14 @@ namespace PH1_QTCSDL.Views
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = view_name;
-                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges2;
+                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
                     cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
                     cmd.Parameters.Add("with_grant", OracleDbType.Char).Value = withGrant;
 
                     cmd.ExecuteNonQuery();
 
                     // Update view
-                    //this.userList_SelectionChanged(userList, null);
+                    this.userList_SelectionChanged(userList, null);
 
                     MessageBox.Show("Grant thành công");
                 }
@@ -244,65 +236,13 @@ namespace PH1_QTCSDL.Views
             }
         }
 
-        //private void revokeClick(object sender, RoutedEventArgs e)
-        //{
-        //    string checkedColumns = this.GetCheckedColumns();
-        //    MessageBox.Show("Checked Columns: " + checkedColumns);
-
-        //    if (this.checkSubmit() == -1)
-        //        return;
-
-        //    DataRowView dr = userList.SelectedItem as DataRowView;
-
-        //    if (dr != null)
-        //    {
-        //        // GRANT....
-        //        string privileges = "";
-        //        if (grantSelect.IsChecked == true)
-        //            privileges += "SELECT, ";
-        //        if (grantUpdate.IsChecked == true)
-        //            privileges += "UPDATE, ";
-        //        if (grantInsert.IsChecked == true)
-        //            privileges += "INSERT, ";
-        //        if (grantDelete.IsChecked == true)
-        //            privileges += "DELETE ";
-
-        //        privileges = privileges.Trim();
-        //        if (privileges.EndsWith(","))
-        //            privileges = privileges.Remove(privileges.Length - 1, 1);
-
-        //        try
-        //        {
-        //            //string withGrant = withGrantOption.IsChecked == true ? "T" : "F";
-        //            //string proc = "REVOKE_PRIVILEGES_FROM(" + cbbTables.Text + ", " + "'" + privileges + "'" + ", " + dr["USERNAME"] + ")";
-        //            //db.Query(proc);
-        //            OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
-        //            cmd.CommandType = CommandType.StoredProcedure;
-
-        //            cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = cbbTables.Text;
-        //            cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
-        //            cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["USERNAME"];
-
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //        catch
-        //        {
-        //            MessageBox.Show("fail to revoke");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Chọn một người dùng!");
-        //    }
-        //}
-
         private void revokeClick(object sender, RoutedEventArgs e)
         {
             DataRowView dr = priviList.SelectedItem as DataRowView;
 
             if (_currRow == null)
             {
-                MessageBox.Show("Chọn một dòng trong table 2 để thu hồi!");
+                MessageBox.Show("Chọn một dòng trong bảng danh sách quyền để thu hồi!");
             }
             else
             {
@@ -318,6 +258,8 @@ namespace PH1_QTCSDL.Views
 
                 // Update view
                 this.userList_SelectionChanged(_currRow, null);
+
+                this._currRow = null;
 
                 MessageBox.Show("Revoke privilege success!");
             }

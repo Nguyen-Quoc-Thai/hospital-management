@@ -81,7 +81,7 @@ namespace PH1_QTCSDL.Views
             {
                 tableColumns.Children.Clear();
                 string tableName = cbbTables.SelectedValue.ToString();
-                string queryString = "SELECT column_name FROM all_tab_columns WHERE table_name = '" + tableName + "'";
+                string queryString = "SELECT DISTINCT column_name FROM all_tab_columns WHERE table_name = '" + tableName + "'";
                 DataTable dt1 = db.Query(queryString);
                 List<DataRow> dataRows_pos = dt1.GetRows();
 
@@ -184,7 +184,6 @@ namespace PH1_QTCSDL.Views
 
             if (dr != null)
             {
-                // GRANT....
                 string privileges = "";
                 if (grantSelect.IsChecked == true)
                     privileges += "SELECT, ";
@@ -198,32 +197,38 @@ namespace PH1_QTCSDL.Views
                 privileges = privileges.Trim();
                 if (privileges.EndsWith(","))
                     privileges = privileges.Remove(privileges.Length - 1, 1);
-                MessageBox.Show("GRANT " + privileges + " ON " + cbbTables.Text + " TO " + dr["ROLE"]);
 
                 string tb_name = cbbTables.Text;
                 string checkedColumns = this.GetCheckedColumns();
-                if (checkedColumns != "")
-                    tb_name += "(" + checkedColumns + ")";
-
-                char withGrant = withGrantOption.IsChecked == true ? 'T' : 'F';
 
                 try
                 {
+                    String view_name = ("V_ROLE_" + tb_name + "_" + privileges).Replace(',', '_').Replace(" ", "");
+                    OracleCommand cmd2 = new OracleCommand("CREATE_VIEW_HIDE_COLUMNS", db.Conn);
+                    cmd2.CommandType = CommandType.StoredProcedure;
 
+                    cmd2.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
+                    cmd2.Parameters.Add("v_name", OracleDbType.Varchar2).Value = view_name;
+                    cmd2.Parameters.Add("str_select", OracleDbType.Varchar2).Value = checkedColumns;
+
+                    cmd2.ExecuteNonQuery();
+
+
+                    // Grant view to user
                     OracleCommand cmd = new OracleCommand("GRANT_PRIVILEGES_TO", db.Conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = tb_name;
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = view_name;
                     cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = privileges;
-                    cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr["ROLE"];
-                    cmd.Parameters.Add("withGrant", OracleDbType.Varchar2).Value = withGrant;
+                    cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
+                    cmd.Parameters.Add("with_grant", OracleDbType.Char).Value = 'F';
 
                     cmd.ExecuteNonQuery();
 
                     // Update view
-                    //this.roleList_SelectionChanged(roleList, null);
+                    this.roleList_SelectionChanged(roleList, null);
 
-                    MessageBox.Show("Grant privilege success!");
+                    MessageBox.Show("Grant thành công");
                 }
                 catch
                 {
@@ -275,7 +280,7 @@ namespace PH1_QTCSDL.Views
 
             if (_currRow == null)
             {
-                MessageBox.Show("Chọn một dòng trong table 2 để thu hồi!");
+                MessageBox.Show("Chọn một dòng trong bảng danh sách quyền để thu hồi!");
             }
             else
             {
@@ -291,6 +296,8 @@ namespace PH1_QTCSDL.Views
 
                 // Update view
                 this.roleList_SelectionChanged(_currRow, null);
+
+                this._currRow = null;
 
                 MessageBox.Show("Revoke privilege success!");
             }
