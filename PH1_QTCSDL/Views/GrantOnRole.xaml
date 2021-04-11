@@ -32,7 +32,7 @@
             SelectedValuePath="SelectedValue"
         ></ComboBox>
 
-        <StackPanel x:Name="tableColumns" Margin="36,203,478,95"/>
+        <StackPanel x:Name="tableColumns" Margin="39,159,475,113"/>
 
         <StackPanel Margin="32,94,468,291">
             <CheckBox x:Name="allGrantOption"
@@ -60,11 +60,6 @@
                       Unchecked="grantOption_CheckedChanged"/>
             </StackPanel>
         </StackPanel>
-
-        <CheckBox x:Name="withGrantOption"
-                  VerticalAlignment="Top"
-                Content="Cho phép người được cấp quyền &#xA;có thể cấp quyền cho role khác" 
-                Margin="32,159,538,0" />
 
         <Button Margin="36,368,664,50"
             Width="100"
