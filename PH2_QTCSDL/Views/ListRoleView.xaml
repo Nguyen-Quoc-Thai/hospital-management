@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="PH2_QTCSDL.Views.ListRoleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PH2_QTCSDL.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="White">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Danh sách Vai trò (Role)" Margin="172,8,300,402"></TextBlock>
+
+        <DataGrid IsReadOnly="True" x:Name="roleList" Margin="354,60,0,0" Height="357" VerticalAlignment="Top" SelectionChanged="myDataGrid_SelectionChanged"/>
+
+        <Label Content = "Vai trò" HorizontalAlignment="Left" Margin="38,61,0,0" VerticalAlignment="Top" Width="60"/>
+        <TextBox x:Name="txtbxVaitro" HorizontalAlignment="Left" Margin="114,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" TextChanged="txtbxVaitro_TextChanged"/>
+
+        <Label Content="Mật khẩu" HorizontalAlignment="Left" Margin="25,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="txtbxPassword" HorizontalAlignment="Left" Margin="116,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" TextChanged="txtbxPassword_TextChanged"/>
+
+        <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="10,167,0,0" VerticalAlignment="Top" Click="btnAdd_Click" Width="60" Height="30"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="81,167,0,0" VerticalAlignment="Top" Width="79" Height="30" Click="btnUpdate_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="172,167,0,0" VerticalAlignment="Top" Width="76" Height="30" Click="btnDelete_Click"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="261,167,0,0" VerticalAlignment="Top" Width="71" Height="30" Click="btnReset_Click"/>
+    </Grid>
+</UserControl>

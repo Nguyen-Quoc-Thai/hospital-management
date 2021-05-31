@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="PH2_QTCSDL.Views.GrantOnRole"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PH2_QTCSDL.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="White">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Thao tác quyền trên Role" Margin="172,8,300,402"></TextBlock>
+
+        <DataGrid x:Name="roleList" 
+                  IsReadOnly="True"
+                  SelectionChanged="roleList_SelectionChanged"
+                  VerticalAlignment="Top" Height="180" Margin="394,48,10,0" />
+
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"  x:Name="table2_title" Margin="394,241,0,0" Width="396" Height="22"/>
+        <DataGrid x:Name="priviList" 
+                  IsReadOnly="True"
+                  VerticalAlignment="Top" Height="176" Margin="394,268,10,0" SelectionChanged="priviList_SelectionChanged" />
+        <Label Content="Bảng" HorizontalAlignment="Left" Margin="49,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <ComboBox
+            x:Name="cbbTables"
+            SelectionChanged="cbbTables_SelectionChanged"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="160" 
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="102,51,0,0"
+            DisplayMemberPath="DisplayName"
+            SelectedValuePath="SelectedValue"
+        ></ComboBox>
+
+        <StackPanel x:Name="tableColumns" Margin="39,159,475,113"/>
+
+        <StackPanel Margin="32,94,468,291">
+            <CheckBox x:Name="allGrantOption"
+                Checked="GrantOptions_CheckedChanged"
+                Unchecked="GrantOptions_CheckedChanged" 
+                Content="Chọn tất cả quyền" Height="22"/>
+            <StackPanel 
+                Orientation="Horizontal" Height="29">
+                <CheckBox x:Name="grantSelect" Width="68" 
+                      Content="Select"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantUpdate" Width="77" 
+                      Content="Update"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantInsert" Width="75" 
+                      Content="Insert"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+                <CheckBox x:Name="grantDelete" 
+                      Content="Delete" 
+                      Width="71"
+                      Checked="grantOption_CheckedChanged" 
+                      Unchecked="grantOption_CheckedChanged"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Margin="36,368,664,50"
+            Width="100"
+            Click="grantClick">
+            Cấp quyền
+        </Button>
+        <Button Margin="182,368,518,50"
+            Width="100"
+            Click="revokeClick2">
+            Thu hồi
+        </Button>
+    </Grid>
+</UserControl>

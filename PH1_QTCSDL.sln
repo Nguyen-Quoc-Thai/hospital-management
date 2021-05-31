@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH1_QTCSDL", "PH1_QTCSDL\PH1_QTCSDL.csproj", "{CCCED7F8-CE69-4242-8851-1E3059A7E603}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PH1_QTCSDL", "PH1_QTCSDL\PH1_QTCSDL.csproj", "{CCCED7F8-CE69-4242-8851-1E3059A7E603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH2_QTCSDL", "PH2_QTCSDL\PH2_QTCSDL.csproj", "{0C3A8E7D-289C-4D0B-ABAF-8BC01DA868DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CCCED7F8-CE69-4242-8851-1E3059A7E603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCCED7F8-CE69-4242-8851-1E3059A7E603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCCED7F8-CE69-4242-8851-1E3059A7E603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C3A8E7D-289C-4D0B-ABAF-8BC01DA868DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C3A8E7D-289C-4D0B-ABAF-8BC01DA868DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C3A8E7D-289C-4D0B-ABAF-8BC01DA868DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C3A8E7D-289C-4D0B-ABAF-8BC01DA868DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
