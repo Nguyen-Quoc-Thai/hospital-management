@@ -8,11 +8,12 @@ namespace PH2_QTCSDL.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _currentViewModel = new HomeWindowModel();
+        private BaseViewModel _currentViewModel = null;
         public ICommand UpdateViewCommand { get; set; }
 
-        public MainViewModel()
+        public MainViewModel(BaseViewModel viewModel)
         {
+            _currentViewModel = viewModel;
             UpdateViewCommand = new UpdateViewCommand(this);
         }
 
