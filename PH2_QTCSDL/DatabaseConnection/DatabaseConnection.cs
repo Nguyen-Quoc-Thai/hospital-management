@@ -10,16 +10,17 @@ namespace PH2_QTCSDL
 {
     class OracleDatabase
     {
+        public static string connStr = "";
 
         //Singleton
-        private static OracleDatabase instance = new OracleDatabase(@"serverconfig.txt");
+        private static OracleDatabase instance = null;
         public static OracleDatabase Instance
         {
             get
             {
                 if(instance == null)
                 {
-                    instance = new OracleDatabase(@"serverconfig.txt");
+                    instance = new OracleDatabase(connStr);
                 }
                 return instance;
             }
@@ -42,9 +43,9 @@ namespace PH2_QTCSDL
                 _conn = new OracleConnection(connStr);
                 _conn.Open();
             }
-            catch
+            catch (Exception err)
             {
-                throw new ArithmeticException("Check lai link database Config di dkm");
+                throw new ArithmeticException(err.Message);
             }
             
         }

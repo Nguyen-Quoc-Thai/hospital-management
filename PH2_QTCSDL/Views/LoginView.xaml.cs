@@ -35,7 +35,8 @@ namespace PH2_QTCSDL.Views
 
             try
             {
-                OracleDatabase instance = new OracleDatabase(connStr);
+                OracleDatabase.connStr = connStr;
+                OracleDatabase instance =  OracleDatabase.Instance;
                 MessageBox.Show(connStr);
 
             }
