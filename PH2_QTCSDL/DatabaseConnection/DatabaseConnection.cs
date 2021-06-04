@@ -34,13 +34,12 @@ namespace PH2_QTCSDL
             get { return _conn; }   // get method
         }
 
-        public OracleDatabase(string path)
+        public OracleDatabase(string connStr)
         {
-            string connectConfig = System.IO.File.ReadAllText(path);
-            _conn = new OracleConnection(connectConfig);
 
             try
             {
+                _conn = new OracleConnection(connStr);
                 _conn.Open();
             }
             catch

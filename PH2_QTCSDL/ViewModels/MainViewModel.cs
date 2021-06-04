@@ -8,7 +8,7 @@ namespace PH2_QTCSDL.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _currentViewModel = new HomeWindowModel();
+        private BaseViewModel _currentViewModel = new LoginViewModel();
         public ICommand UpdateViewCommand { get; set; }
 
         public MainViewModel()

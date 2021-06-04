@@ -115,6 +115,10 @@
                 <DataTemplate DataType="{x:Type viewmodels:HomeWindowModel}">
                     <views:HomeView></views:HomeView>
                 </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                    <views:LoginView></views:LoginView>
+                </DataTemplate>
 
 
 
