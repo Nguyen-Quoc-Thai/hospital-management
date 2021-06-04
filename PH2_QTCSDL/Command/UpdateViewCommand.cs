@@ -13,6 +13,7 @@ namespace PH2_QTCSDL.Command
         {
             this._viewModel = viewModel;
         }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -22,7 +23,7 @@ namespace PH2_QTCSDL.Command
 
         public void Execute(object parameter)
         {
-            switch(parameter)
+            switch (parameter)
             {
                 case "ListUser":
                     _viewModel.CurrentViewModel = new ListUserViewModel();
@@ -41,6 +42,9 @@ namespace PH2_QTCSDL.Command
                     break;
                 case "ListRole":
                     _viewModel.CurrentViewModel = new ListRoleViewModel();
+                    break;
+                case "Login":
+                    _viewModel.CurrentViewModel = new HomeWindowModel();
                     break;
             }
         }

@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\medical.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.2-ci2567" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.1-ci2567" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.8-ci2567" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\medical.png" />
   </ItemGroup>
 
 </Project>

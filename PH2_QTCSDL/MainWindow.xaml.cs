@@ -24,7 +24,17 @@ namespace PH2_QTCSDL
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            //DataContext = new MainViewModel();
+            SetWindownActive(View_Login);
+        }
+
+
+        public void SetWindownActive(UserControl uc)
+        {
+            View_Home.Visibility = Visibility.Collapsed;
+            View_Login.Visibility = Visibility.Collapsed;
+
+            uc.Visibility = Visibility.Visible;
         }
     }
 }

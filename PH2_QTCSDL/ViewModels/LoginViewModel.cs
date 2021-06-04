@@ -6,16 +6,9 @@ using System.Windows.Input;
 
 namespace PH2_QTCSDL.ViewModels
 {
-    class MainViewModel : BaseViewModel
+    class LoginViewModel : BaseViewModel
     {
-        private BaseViewModel _currentViewModel = new LoginViewModel();
-        public ICommand UpdateViewCommand { get; set; }
-
-        public MainViewModel()
-        {
-            UpdateViewCommand = new UpdateViewCommand(this);
-        }
-
+        private BaseViewModel _currentViewModel;
 
         public BaseViewModel CurrentViewModel
         {
@@ -29,4 +22,3 @@ namespace PH2_QTCSDL.ViewModels
         }
     }
 }
-

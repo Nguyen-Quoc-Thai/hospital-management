@@ -42,6 +42,9 @@ namespace PH1_QTCSDL.Command
                 case "ListRole":
                     _viewModel.CurrentViewModel = new ListRoleViewModel();
                     break;
+                case "Login":
+                    _viewModel.CurrentViewModel = new ListRoleViewModel();
+                    break;
             }
         }
     }
