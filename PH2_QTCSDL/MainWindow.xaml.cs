@@ -24,7 +24,9 @@ namespace PH2_QTCSDL
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+
+            BaseViewModel loginViewModel = new LoginViewModel();
+            DataContext = new MainViewModel(loginViewModel);
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Oracle.ManagedDataAccess.Client;
 using PH2_QTCSDL;
+using PH2_QTCSDL.Command;
 using PH2_QTCSDL.ViewModels;
 
 namespace PH2_QTCSDL.Views
@@ -30,20 +31,26 @@ namespace PH2_QTCSDL.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //new OracleDatabase("")
             string connStr = "TNS_ADMIN=C: \\Users\\Qouc Tahi\\Oracle\\network\\admin;USER ID=" + usernameBox.Text+ ";PASSWORD=" + passwordBox.Password + ";DATA SOURCE=localhost:1521/ORCLCDB.localdomain;PERSIST SECURITY INFO=True";
 
             try
             {
                 OracleDatabase.connStr = connStr;
                 OracleDatabase instance =  OracleDatabase.Instance;
-                MessageBox.Show(connStr);
+                MessageBox.Show("Login successfully!");
 
+                this.Update_View();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
         }
-    }
+
+        private void Update_View()
+        {
+            BaseViewModel homeViewModel = new HomeWindowModel();
+            DataContext = new MainViewModel(homeViewModel);
+        }
+}
 }
