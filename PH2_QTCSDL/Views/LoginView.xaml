@@ -14,8 +14,9 @@
         <PasswordBox Name="passwordBox" HorizontalAlignment="Center" Margin="0,236,0,0" VerticalAlignment="Top" Width="120" Password=""/>
 
         <Button
+            Click="Button_Click"
             Style="{StaticResource MaterialDesignFlatMidBgButton}"
             ToolTip="MaterialDesignFlatMidButton"
-            Content="Sign in" Margin="239,291,250,111" Click="Button_Click"/>
+            Content="Sign in" Margin="239,291,250,111"/>
     </Grid>
 </UserControl>

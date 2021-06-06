@@ -22,7 +22,8 @@ namespace PH2_QTCSDL.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
-        private static OracleDatabase instance = null;
+        //private static OracleDatabase instance = null;
+        MainWindow main = (MainWindow)Application.Current.MainWindow;
 
         public LoginView()
         {
@@ -31,26 +32,9 @@ namespace PH2_QTCSDL.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string connStr = "TNS_ADMIN=C: \\Users\\Qouc Tahi\\Oracle\\network\\admin;USER ID=" + usernameBox.Text+ ";PASSWORD=" + passwordBox.Password + ";DATA SOURCE=localhost:1521/ORCLCDB.localdomain;PERSIST SECURITY INFO=True";
+            //main.SetWindownActive(main.View_TaiNguyen_NhanSu);
 
-            try
-            {
-                OracleDatabase.connStr = connStr;
-                OracleDatabase instance =  OracleDatabase.Instance;
-                MessageBox.Show("Login successfully!");
-
-                this.Update_View();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
+            main.SetWindownActive(main.View_QuanLyTaiVu);
         }
-
-        private void Update_View()
-        {
-            BaseViewModel homeViewModel = new HomeWindowModel();
-            DataContext = new MainViewModel(homeViewModel);
-        }
-}
+    }
 }

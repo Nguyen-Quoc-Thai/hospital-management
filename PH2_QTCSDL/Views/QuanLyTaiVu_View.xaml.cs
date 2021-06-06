@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace PH2_QTCSDL.Views
 {
     /// <summary>
-    /// Interaction logic for TaiNguyen_NhanSu_View.xaml
+    /// Interaction logic for QuanLyTaiVu_View.xaml
     /// </summary>
-    public partial class TaiNguyen_NhanSu_View : UserControl
+    public partial class QuanLyTaiVu_View : UserControl
     {
-        public TaiNguyen_NhanSu_View()
+        public QuanLyTaiVu_View()
         {
             InitializeComponent();
             ShowUserControl(Home);
@@ -26,7 +26,7 @@ namespace PH2_QTCSDL.Views
 
         private void ShowListStaff(object sender, RoutedEventArgs e)
         {
-            ShowUserControl(ListStaff);
+            ShowUserControl(ListInfomation);
 
         }
 
@@ -39,7 +39,7 @@ namespace PH2_QTCSDL.Views
         public void ShowUserControl(UserControl uc)
         {
             Home.Visibility = Visibility.Collapsed;
-            ListStaff.Visibility = Visibility.Collapsed;
+            ListInfomation.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
         }
