@@ -20,8 +20,9 @@
 
     <Grid>
         <views:HomeView Margin="96,0,0,0" Visibility="Collapsed" x:Name="View_Home" x:FieldModifier="public"></views:HomeView>
-        <views:LoginView Visibility="Collapsed" x:Name="View_Login" x:FieldModifier="public"></views:LoginView>
+        <views:LoginFormView Visibility="Collapsed" x:Name="View_Login" x:FieldModifier="public"></views:LoginFormView>
         <views:TaiNguyen_NhanSu_View Visibility="Collapsed" x:Name="View_TaiNguyen_NhanSu" x:FieldModifier="public"></views:TaiNguyen_NhanSu_View>
         <views:QuanLyTaiVu_View Visibility="Collapsed" x:Name="View_QuanLyTaiVu" x:FieldModifier="public"></views:QuanLyTaiVu_View>
+        <views:BacSi Visibility="Collapsed" x:Name="View_BacSi" x:FieldModifier="public"></views:BacSi>
     </Grid>
 </Window>
