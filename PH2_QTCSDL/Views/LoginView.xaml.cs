@@ -32,9 +32,8 @@ namespace PH2_QTCSDL.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //main.SetWindownActive(main.View_TaiNguyen_NhanSu);
-
-            main.SetWindownActive(main.View_QuanLyTaiVu);
+            main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+            //main.SetWindownActive(main.View_QuanLyTaiVu);
         }
     }
 }

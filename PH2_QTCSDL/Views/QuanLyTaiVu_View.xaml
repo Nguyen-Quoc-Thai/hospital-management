@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PH2_QTCSDL.Views"
-             xmlns:views="clr-namespace:PH2_QTCSDL.Views.QuanLyTaiVu_Component"
+             xmlns:PrivteViews="clr-namespace:PH2_QTCSDL.Views.QuanLyTaiVu_Component"
              mc:Ignorable="d" 
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -100,8 +100,8 @@
 
         <!--USER CONTROL-->
         <Grid Margin="90,10,0,10">
-            <views:Home x:Name="Home" x:FieldModifier="public" Visibility="Collapsed" ></views:Home>
-            <views:ListInfomation x:Name="ListInfomation" x:FieldModifier="public" Visibility="Collapsed"></views:ListInfomation>
+            <PrivteViews:Home x:Name="Home" x:FieldModifier="public" Visibility="Collapsed" ></PrivteViews:Home>
+            <PrivteViews:ListInfomation x:Name="ListInfomation" x:FieldModifier="public" Visibility="Collapsed"></PrivteViews:ListInfomation>
         </Grid>
     </Grid>
 </UserControl>
