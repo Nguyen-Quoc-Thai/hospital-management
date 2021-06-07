@@ -21,4 +21,9 @@
     <Resource Include="Resources\medical.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\QuanLyChuyenMon_Component\" />
+    <Folder Include="Views\PublicView\" />
+  </ItemGroup>
+
 </Project>

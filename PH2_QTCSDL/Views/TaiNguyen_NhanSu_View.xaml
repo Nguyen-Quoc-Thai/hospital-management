@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PH2_QTCSDL"
-             xmlns:views="clr-namespace:PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component"
+             xmlns:PrivteViews="clr-namespace:PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component"
              mc:Ignorable="d" 
         xmlns:viewmodels ="clr-namespace:PH2_QTCSDL.ViewModels"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -85,7 +85,7 @@
                             </ListViewItem>
                             <ListViewItem HorizontalAlignment="Center" Margin="0 10">
                                 <Button ToolTip="Thông tin quyền" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
+                                BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black"
                                 Command="{Binding UpdateViewCommand}" CommandParameter="Privilges">
                                     <StackPanel Margin="-5">
                                         <materialDesign:PackIcon Kind="QuestionMark"/>
@@ -101,8 +101,8 @@
 
         <!--USER CONTROL-->
         <Grid Margin="90,10,0,10">
-            <views:Home x:Name="Home" x:FieldModifier="public" Visibility="Collapsed" ></views:Home>
-            <views:ListStaff x:Name="ListStaff" x:FieldModifier="public" Visibility="Collapsed"></views:ListStaff>
+            <PrivteViews:Home x:Name="Home" x:FieldModifier="public" Visibility="Collapsed" ></PrivteViews:Home>
+            <PrivteViews:ListStaff x:Name="ListStaff" x:FieldModifier="public" Visibility="Collapsed"></PrivteViews:ListStaff>
         </Grid>
     </Grid>
 </UserControl>
