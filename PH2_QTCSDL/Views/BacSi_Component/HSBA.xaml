@@ -8,23 +8,29 @@
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 >
-    <Grid Background="White">
-        <Button Click="btn_Click" Content="Refresh" Margin="710,37,10,0" Height="32" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" />
+    <Grid Background="White" Margin="22,0,-22,0">
+        <Button Click="btn_Click" Content="Refresh" Margin="0,33,10,0" Height="32" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" />
 
         <DataGrid IsReadOnly="True" x:Name="HSBA_table" VerticalAlignment="Top" Margin="419,74,0,0" Height="298" SelectionChanged="HSBA_table_SelectionChanged"/>
 
-        <Label Content="Mã Khám bệnh" HorizontalAlignment="Left" Margin="57,74,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="HSBA_MAKB" IsReadOnly="True" HorizontalAlignment="Left" Margin="151,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" />
+        <Label Content="Mã Khám bệnh" HorizontalAlignment="Left" Margin="58,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HSBA_MAKB" IsReadOnly="True" TextChanged="HSBA_textChange"
+            HorizontalAlignment="Left" Margin="151,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" />
 
-        <Label Content="Mã BN" HorizontalAlignment="Left" Margin="254,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="HSBA_MABN" IsReadOnly="True" HorizontalAlignment="Left" Margin="303,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" />
+        <Label Content="Mã BN" HorizontalAlignment="Left" Margin="254,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HSBA_MABN" IsReadOnly="True" TextChanged="HSBA_textChange"
+            HorizontalAlignment="Left" Margin="303,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="96" />
 
-        <Label Content="Tình trạng ban đầu" HorizontalAlignment="Left" Margin="57,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="HSBA_TTBD" HorizontalAlignment="Left" Margin="180,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" />
+        <Label Content="Tình trạng ban đầu" HorizontalAlignment="Left" Margin="57,116,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HSBA_TTBD" TextChanged="HSBA_textChange"
+            HorizontalAlignment="Left" Margin="180,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" />
 
-        <Label Content="Kết luận bác sĩ" HorizontalAlignment="Left" Margin="59,161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="HSBA_KLBS" HorizontalAlignment="Left" Margin="180,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
+        <Label Content="Kết luận bác sĩ" HorizontalAlignment="Left" Margin="59,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HSBA_KLBS" TextChanged="HSBA_textChange"
+            HorizontalAlignment="Left" Margin="180,162,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220" />
 
-        <Button Content="Update" HorizontalAlignment="Left" Margin="62,223,0,0" VerticalAlignment="Top" Width="79" Height="30" Click="HSBA_update"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="62,225,0,0" VerticalAlignment="Top" Width="79" Height="31" Click="HSBA_update"/>
+        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="180,225,0,0" VerticalAlignment="Top" Width="79" Height="31" Click="HSBA_insert"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="304,225,0,0" VerticalAlignment="Top" Width="78" Height="31" Click="HSBA_reset"/>
     </Grid>
 </UserControl>

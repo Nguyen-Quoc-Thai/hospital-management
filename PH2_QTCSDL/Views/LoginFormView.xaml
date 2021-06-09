@@ -40,12 +40,6 @@
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Width="100">
-                <Button Margin="10 20" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="{x:Null}"
-                 ToolTip="Close" x:Name="btnExit">
-                    <materialDesign:PackIcon Kind="Close" Foreground="White" Width="30" Height="30" />
-                </Button>
-            </StackPanel>
         </StackPanel>
 
         <!--<ContentControl Content="{Binding CurrentViewModel}" >

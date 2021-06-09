@@ -32,6 +32,9 @@ namespace PH2_QTCSDL
         public void SetWindownActive(UserControl uc)
         {
             View_Home.Visibility = Visibility.Collapsed;
+            View_BacSi.Visibility = Visibility.Collapsed;
+            View_QuanLyTaiVu.Visibility = Visibility.Collapsed;
+            View_TaiNguyen_NhanSu.Visibility = Visibility.Collapsed;
             View_Login.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
