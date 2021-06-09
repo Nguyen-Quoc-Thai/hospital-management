@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,19 +29,30 @@ namespace PH2_QTCSDL.Views
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string connStr = "TNS_ADMIN=C:\\Users\\HP\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/orcl;PERSIST SECURITY INFO=True";
-
+            OracleDatabase.connStr = connStr;
+            OracleDatabase instance = OracleDatabase.Instance;
             try
-            {
-                OracleDatabase.connStr = connStr;
-                OracleDatabase instance = OracleDatabase.Instance;
-                //MessageBox.Show("Login successfully!");
+            { 
+                DataTable dt = instance.Query("select get_user_role from dual");
 
-                //goi oracle redirect
-                main.SetWindownActive(main.View_BacSi);
+                string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
+
+                if (role == "BACSI")
+                    main.SetWindownActive(main.View_BacSi);
+                else if (role == "QLTAINGUYENNHANSU")
+                    main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                else
+                {
+                    MessageBox.Show("Bạn không có quyền vào hệ thống");
+                    instance = OracleDatabase.ResetInstance;
+                }
+                txtUsername.Clear();
+                txtPassword.Clear();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+                instance = OracleDatabase.ResetInstance;
             }
         }
     }

@@ -14,20 +14,27 @@
         <DataGrid IsReadOnly="True" x:Name="CTDT_table" VerticalAlignment="Top" Margin="419,95,0,0" Height="298" SelectionChanged="CTDT_table_SelectionChanged"/>
 
         <Label Content="Mã Khám bệnh" HorizontalAlignment="Left" Margin="45,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="CTDT_MAKB" IsReadOnly="True" HorizontalAlignment="Left" Margin="139,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" />
+        <TextBox x:Name="CTDT_MAKB" IsReadOnly="True" TextChanged="CTDT_textChange"
+            HorizontalAlignment="Left" Margin="139,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" />
 
         <Label Content="Mã Thuốc" HorizontalAlignment="Left" Margin="229,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="CTDT_MATHUOC" IsReadOnly="True" HorizontalAlignment="Left" Margin="295,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" />
+        <TextBox x:Name="CTDT_MATHUOC" IsReadOnly="True" TextChanged="CTDT_textChange"
+            HorizontalAlignment="Left" Margin="295,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" />
 
         <Label Content="Số lượng" HorizontalAlignment="Left" Margin="47,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="CTDT_SOLUONG" PreviewTextInput="CTDT_SOLUONG_NUM" HorizontalAlignment="Left" Margin="110,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67" />
+        <TextBox x:Name="CTDT_SOLUONG" TextChanged="CTDT_textChange"
+            PreviewTextInput="CTDT_SOLUONG_NUM" HorizontalAlignment="Left" Margin="110,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67" />
 
         <Label Content="Liều dùng" HorizontalAlignment="Left" Margin="193,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="CTDT_LIEUDUNG" HorizontalAlignment="Left" Margin="261,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" />
+        <TextBox x:Name="CTDT_LIEUDUNG" TextChanged="CTDT_textChange"
+            HorizontalAlignment="Left" Margin="261,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" />
 
         <Label Content="Mô tả" HorizontalAlignment="Left" Margin="50,215,0,211" RenderTransformOrigin="0.492,-1.502"/>
-        <TextBox x:Name="CTDT_MOTA" HorizontalAlignment="Left" Margin="110,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" />
+        <TextBox x:Name="CTDT_MOTA" TextChanged="CTDT_textChange"
+            HorizontalAlignment="Left" Margin="110,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" />
 
-        <Button Content="Update" HorizontalAlignment="Left" Margin="54,263,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CTDT_update"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="54,263,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CTDT_update"/>
+        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="174,263,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CTDT_insert"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="297,263,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="CTDT_reset"/>
     </Grid>
 </UserControl>
