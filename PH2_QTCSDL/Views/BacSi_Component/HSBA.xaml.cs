@@ -26,8 +26,15 @@ namespace PH2_QTCSDL.Views.BacSi_Component
             InitializeComponent();
         }
 
+        protected virtual void OnLoad(EventArgs e)
+        {
+            this.UpdateDataGrid();
+        }
+
+
         private void btn_Click(object sender, RoutedEventArgs e)
         {
+            
             this.UpdateDataGrid();
         }
 
@@ -74,6 +81,12 @@ namespace PH2_QTCSDL.Views.BacSi_Component
             {
                 MessageBox.Show("Không thể chỉnh sửa bệnh án");
             }
+        }
+
+        private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            this.UpdateDataGrid();
+
         }
     }
 }

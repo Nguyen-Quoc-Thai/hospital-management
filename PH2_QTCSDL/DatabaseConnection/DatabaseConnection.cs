@@ -11,6 +11,8 @@ namespace PH2_QTCSDL
     class OracleDatabase
     {
         //Singleton
+        public static string connStr;
+
         private static OracleDatabase instance = new OracleDatabase(@"serverconfig.txt");
         public static OracleDatabase Instance
         {
