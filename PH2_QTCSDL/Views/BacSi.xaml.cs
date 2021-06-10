@@ -24,13 +24,12 @@ namespace PH2_QTCSDL.Views
         public BacSi()
         {
             InitializeComponent();
-            ShowUserControl(HSBA);
         }
 
-        private void QuanLiTaiVu_View(object sender, RoutedEventArgs e)
+        public void Logout_Click(object sender, RoutedEventArgs e)
         {
-            BacSi_View.Visibility = Visibility.Collapsed;
-            main.SetWindownActive(main.View_QuanLyTaiVu);       // NOT WORKING
+            OracleDatabase instance = OracleDatabase.ResetInstance;
+            main.SetWindownActive(main.View_Login);
         }
 
         public void ShowUserControl(UserControl uc)

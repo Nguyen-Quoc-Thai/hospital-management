@@ -26,8 +26,8 @@ namespace PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component
         public ListStaff()
         {
             InitializeComponent();
-            Initialize();
-            LoadStaff();
+            //Initialize();
+            //LoadStaff();
         }
 
 
