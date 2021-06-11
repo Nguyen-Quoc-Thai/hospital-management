@@ -34,13 +34,13 @@ namespace PH2_QTCSDL.Views
             try
             { 
                 DataTable dt = instance.Query("select get_user_role from dual");
-
                 string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
-
                 if (role == "BACSI")
                     main.SetWindownActive(main.View_BacSi);
                 else if (role == "QLTAINGUYENNHANSU")
                     main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                else if (role == "TIEPTAN")
+                    main.SetWindownActive(main.View_TiepTan);
                 else
                 {
                     MessageBox.Show("Bạn không có quyền vào hệ thống");
