@@ -41,7 +41,7 @@ namespace PH2_QTCSDL.Views.BacSi_Component
             OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
             try
             {
-                DataTable dt = db.Query("SELECT * FROM SYS2.BS_VIEW_CHITIETDONTHUOC");
+                DataTable dt = db.Query("SELECT * FROM QT.BS_VIEW_CHITIETDONTHUOC");
                 CTDT_table.ItemsSource = dt.DefaultView;
             }
             catch (Exception err)
@@ -78,10 +78,11 @@ namespace PH2_QTCSDL.Views.BacSi_Component
         {
             try
             {
-                string sql = "UPDATE SYS2.BS_VIEW_CHITIETDONTHUOC SET MATHUOC='" + CTDT_MATHUOC.Text + "', SOLUONG='" + CTDT_SOLUONG.Text 
+                string sql = "UPDATE QT.BS_VIEW_CHITIETDONTHUOC SET MATHUOC='" + CTDT_MATHUOC.Text + "', SOLUONG='" + CTDT_SOLUONG.Text 
                     + "', LIEUDUNG='" + CTDT_LIEUDUNG.Text + "', MOTA='" + CTDT_MOTA.Text + "' WHERE MAKB='" + CTDT_MAKB.Text + "'"; ;
                 db = OracleDatabase.Instance;
                 db.Query(sql);
+                db.Query("COMMIT");
                 MessageBox.Show("Cập nhật thành công");
                 this.UpdateDataGrid();
             }
@@ -102,10 +103,11 @@ namespace PH2_QTCSDL.Views.BacSi_Component
         {
             try
             {
-                string sql = "INSERT INTO SYS2.BS_VIEW_CHITIETDONTHUOC(MAKB, MATHUOC, SOLUONG, LIEUDUNG, MOTA) VALUES ('"
+                string sql = "INSERT INTO QT.BS_VIEW_CHITIETDONTHUOC(MAKB, MATHUOC, SOLUONG, LIEUDUNG, MOTA) VALUES ('"
                     + CTDT_MAKB.Text + "', '" + CTDT_MATHUOC.Text + "', " + CTDT_SOLUONG.Text + ", '" + CTDT_LIEUDUNG.Text + "', '" + CTDT_MOTA.Text + "')";
                 db = OracleDatabase.Instance;
                 db.Query(sql);
+                db.Query("COMMIT");
                 MessageBox.Show("Thêm thành công");
                 this.UpdateDataGrid();
             }

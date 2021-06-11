@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PH2_QTCSDL.Views.TiepTan_Component.BenhNhan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PH2_QTCSDL.Views.TiepTan_Component"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+>
+    <Grid Background="White" Margin="-2,0,2,0">
+        <Button Click="btn_Click" Content="Refresh" Margin="684,44,10,0" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" />
+
+        <DataGrid IsReadOnly="True" x:Name="BenhNhan_table" VerticalAlignment="Top" Margin="400,95,0,0" Height="298" SelectionChanged="BenhNhan_table_SelectionChanged"/>
+
+        <Label Content="Mã bệnh nhân" HorizontalAlignment="Left" Margin="52,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="BN_MABN" TextChanged="BenhNhan_textChange"
+            HorizontalAlignment="Left" Margin="167,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+
+        <Label Content="Họ tên" HorizontalAlignment="Left" Margin="51,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="BN_HOTEN" TextChanged="BenhNhan_textChange"
+            HorizontalAlignment="Left" Margin="167,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+
+        <Label Content="Ngày sinh" HorizontalAlignment="Left" Margin="51,196,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <DatePicker x:Name="BN_NGAYSINH" Margin="167,195,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.492,-1.502" Width="185"/>
+
+        <Label Content="Địa chỉ" HorizontalAlignment="Left" Margin="51,241,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="BN_DIACHI" TextChanged="BenhNhan_textChange"
+            HorizontalAlignment="Left" Margin="167,241,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+
+        <Label Content="Số điện thoại" HorizontalAlignment="Left" Margin="51,288,0,138" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="BN_SDT" TextChanged="BenhNhan_textChange"
+            HorizontalAlignment="Left" Margin="167,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="114,335,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="BenhNhan_update"/>
+        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="24,335,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="BenhNhan_insert"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="302,335,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="BenhNhan_reset"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="BenhNhan_delete"/>
+    </Grid>
+</UserControl>

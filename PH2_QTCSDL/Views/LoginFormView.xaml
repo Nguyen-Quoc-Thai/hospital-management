@@ -9,7 +9,7 @@
              xmlns:viewmodels="clr-namespace:PH2_QTCSDL.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <Grid Margin="0,10,10,0">
+    <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
                 <GradientStop Color="#FFE63070" Offset="1" />
