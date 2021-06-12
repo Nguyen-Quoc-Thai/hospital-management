@@ -22,28 +22,43 @@ namespace PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component
     {
 
         OracleDatabase db;
-
+        DataTable dt;
         public ListStaff()
         {
             InitializeComponent();
-            //Initialize();
-            //LoadStaff();
         }
 
 
-        public void Initialize()
+        private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             db = OracleDatabase.Instance;
-            OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
-            cmd.ExecuteNonQuery();
-        }
+            dt = db.Query("select get_user_role from dual");
+            string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
+            
+            if(role == "BACSI")
+            {
+                dt = db.Query("select * from qt.NHANVIEN");
 
-        public void LoadStaff()
-        {
-            DataTable dt = db.Query("select nv.MANV, nv.HOTEN, nv.LUONG, nv.VAITRO,  vt.MAVAITRO , nv.NGAYSINH, nv.DONVI from NHANVIEN nv, VAITRO vt WHERE nv.VAITRO = vt.MAVAITRO");
+            }
+            else if(role == "CLGT")
+            {
+
+            }
+
             myDataGrid.ItemsSource = dt.DefaultView;
+            UpdateContentLabel();
+
         }
 
+        void UpdateContentLabel()
+        {
+            content1.Content = dt.Columns[0].ColumnName;
+            content2.Content = dt.Columns[1].ColumnName;
+            content3.Content = dt.Columns[2].ColumnName;
+            content4.Content = dt.Columns[3].ColumnName;
+            content5.Content = dt.Columns[4].ColumnName;
+
+        }
     }
 
 

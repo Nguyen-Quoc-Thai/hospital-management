@@ -28,19 +28,21 @@ namespace PH2_QTCSDL.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string connStr = "TNS_ADMIN=C:\\Users\\HP\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/orcl;PERSIST SECURITY INFO=True";
+            //string connStr = "TNS_ADMIN=C:\\Users\\HP\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/orcl;PERSIST SECURITY INFO=True";
+            string connStr = "TNS_ADMIN=C:\\Users\\tanla\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/ORCLCDB.localdomain;PERSIST SECURITY INFO=True";
+            //TNS_ADMIN=C:\Users\tanla\Oracle\network\admin;USER ID=SYS;password=Oradoc_db1;DATA SOURCE=localhost:1521/ORCLCDB.localdomain;PERSIST SECURITY INFO=True
             OracleDatabase.connStr = connStr;
             OracleDatabase instance = OracleDatabase.Instance;
             try
-            { 
+            {
                 DataTable dt = instance.Query("select get_user_role from dual");
 
                 string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
 
                 if (role == "BACSI")
                     main.SetWindownActive(main.View_BacSi);
-                else if (role == "QLTAINGUYENNHANSU")
-                    main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                //else if (role == "QLTAINGUYENNHANSU")
+                //    main.SetWindownActive(main.View_TaiNguyen_NhanSu);
                 else
                 {
                     MessageBox.Show("Bạn không có quyền vào hệ thống");
