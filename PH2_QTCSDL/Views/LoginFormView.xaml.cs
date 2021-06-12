@@ -49,7 +49,10 @@ namespace PH2_QTCSDL.Views
                     if (role == "BACSI")
                         main.SetWindownActive(main.View_BacSi);
                     else if (role == "QLTAINGUYENNHANSU")
-                        main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                    {
+                        //main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                    }
+
                     else if (role == "TIEPTAN")
                         main.SetWindownActive(main.View_TiepTan);
                     else
