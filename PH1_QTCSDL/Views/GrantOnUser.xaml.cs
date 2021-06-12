@@ -39,24 +39,37 @@ namespace PH1_QTCSDL.Views
 
         private void LoadCombobox()
         {
-            List<Combobox> TableList = new List<Combobox>();
+            List<Combobox> TableList1 = new List<Combobox>();
+            List<Combobox> TableList2 = new List<Combobox>();
 
             //DataTable dt1 = db.Query("SELECT table_name FROM user_tables");
             //DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE last_analyzed IS NULL AND(REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
             DataTable dt1 = db.Query("SELECT table_name FROM all_tables WHERE table_name <> 'PSTUBTBL' MINUS SELECT table_name FROM all_tables WHERE (REGEXP_LIKE(table_name, '\\$', 'i') OR REGEXP_LIKE(table_name, '\\_.', 'i')) AND table_name <> 'HOSO_DICHVU' ORDER BY table_name ASC");
-            List<DataRow> dataRows_pos = dt1.GetRows();
+            DataTable dt2 = db.Query("SELECT ROLE FROM DBA_ROLES");
+            List<DataRow> dataRows_pos1 = dt1.GetRows();
+            List<DataRow> dataRows_pos2 = dt2.GetRows();
             
             try
             {
-                foreach (DataRow row in dataRows_pos)
+                foreach (DataRow row in dataRows_pos1)
                 {
-                    TableList.Add(new Combobox()
+                    TableList1.Add(new Combobox()
                     {
                         DisplayName = row.GetData(0),
                         SelectedValue = row.GetData(0)
                     });
                 }
-                cbbTables.ItemsSource = TableList;
+                cbbTables.ItemsSource = TableList1;
+                
+                foreach (DataRow row in dataRows_pos2)
+                {
+                    TableList2.Add(new Combobox()
+                    {
+                        DisplayName = row.GetData(0),
+                        SelectedValue = row.GetData(0)
+                    });
+                }
+                cbbRoles.ItemsSource = TableList2;
             }
             catch (Exception ex)
             {
@@ -280,6 +293,46 @@ namespace PH1_QTCSDL.Views
         private void priviList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this._currRow = sender;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbbRoles.SelectedIndex <= -1)
+            {
+                MessageBox.Show("Hãy chọn một role");
+            };
+
+            DataRowView dr = userList.SelectedItem as DataRowView;
+
+            if (dr != null)
+            {
+                try
+                {
+                    // Grant role to user
+                    char withGrant = withGrantOption.IsChecked == true ? 'T' : 'F';
+                    OracleCommand cmd = new OracleCommand("GRANT_ROLE_TO", db.Conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("role_name", OracleDbType.Varchar2).Value = cbbRoles.Text;
+                    cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
+                    cmd.Parameters.Add("with_grant", OracleDbType.Char).Value = withGrant;
+
+                    cmd.ExecuteNonQuery();
+
+                    // Update view
+                    this.userList_SelectionChanged(userList, null);
+
+                    MessageBox.Show("Grant thành công");
+                }
+                catch
+                {
+                    MessageBox.Show("fail to grant");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chọn một người dùng!");
+            }
         }
     }
 }
