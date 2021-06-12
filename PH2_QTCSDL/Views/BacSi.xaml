@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PH2_QTCSDL"
              xmlns:views="clr-namespace:PH2_QTCSDL.Views.BacSi_Component"
+             xmlns:QLviews="clr-namespace:PH2_QTCSDL.Views"
              mc:Ignorable="d" 
         xmlns:viewmodels ="clr-namespace:PH2_QTCSDL.ViewModels"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -48,6 +49,9 @@
             </TabItem>
             <TabItem Header="Chi tiết đơn thuốc">
                 <views:CTDT x:Name="CTDT" x:FieldModifier="public" Visibility="Collapsed"></views:CTDT>
+            </TabItem>
+            <TabItem Header="Quản lý">
+                <QLviews:TaiNguyen_NhanSu_View></QLviews:TaiNguyen_NhanSu_View>
             </TabItem>
         </TabControl>
 
