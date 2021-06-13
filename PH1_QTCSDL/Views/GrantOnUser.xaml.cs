@@ -240,7 +240,7 @@ namespace PH1_QTCSDL.Views
                 }
                 catch
                 {
-                    MessageBox.Show("fail to grant");
+                    MessageBox.Show("Fail to grant");
                 }
             }
             else
@@ -253,29 +253,36 @@ namespace PH1_QTCSDL.Views
         {
             DataRowView dr = priviList.SelectedItem as DataRowView;
 
-            if (_currRow == null)
+            try
             {
-                MessageBox.Show("Chọn một dòng trong bảng danh sách quyền để thu hồi!");
-            }
-            else
+                if (_currRow == null)
+                {
+                    MessageBox.Show("Chọn một dòng trong bảng danh sách quyền/role để thu hồi!");
+                }
+                else
+                {
+                    // Call store proc
+                    OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = dr[4].ToString();
+                    cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = dr[1].ToString();
+                    cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr[0].ToString();
+
+                    cmd.ExecuteNonQuery();
+
+                    // Update view
+                    this.userList_SelectionChanged(_currRow, null);
+
+                    this._currRow = null;
+
+                    MessageBox.Show("Revoke privilege success!");
+                }
+            }catch(Exception ex)
             {
-                // Call store proc
-                OracleCommand cmd = new OracleCommand("REVOKE_PRIVILEGES_FROM", db.Conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.Add("tb_name", OracleDbType.Varchar2).Value = dr[4].ToString();
-                cmd.Parameters.Add("str_priv", OracleDbType.Varchar2).Value = dr[3].ToString();
-                cmd.Parameters.Add("user", OracleDbType.Varchar2).Value = dr[0].ToString();
-
-                cmd.ExecuteNonQuery();
-
-                // Update view
-                this.userList_SelectionChanged(_currRow, null);
-
-                this._currRow = null;
-
-                MessageBox.Show("Revoke privilege success!");
+                MessageBox.Show("Đây là role, không phải privilege");
             }
+
         }
 
         private void userList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -284,8 +291,8 @@ namespace PH1_QTCSDL.Views
             DataRowView dr = dg.SelectedItem as DataRowView;
 
             table2_title.Text = "Danh sách quyền của user " + dr[0].ToString();
-            var sql = "SELECT GRANTEE, OWNER, TABLE_NAME GRANTOR, PRIVILEGE, TABLE_NAME, GRANTABLE FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
-            
+            var sql = "SELECT GRANTEE, GRANTED_ROLE AS ROLE_PRIVILEGES, ADMIN_OPTION AS OWNER, DELEGATE_OPTION AS GRANTOR, COMMON AS TABLE_NAME FROM DBA_ROLE_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "' UNION ALL SELECT GRANTEE, PRIVILEGE, OWNER, GRANTOR, TABLE_NAME FROM DBA_TAB_PRIVS WHERE GRANTEE='" + dr[0].ToString() + "'";
+
             DataTable dt = db.Query(sql);
             priviList.ItemsSource = dt.DefaultView;
         }
@@ -326,13 +333,49 @@ namespace PH1_QTCSDL.Views
                 }
                 catch
                 {
-                    MessageBox.Show("fail to grant");
+                    MessageBox.Show("Fail to grant");
                 }
             }
             else
             {
                 MessageBox.Show("Chọn một người dùng!");
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataRowView dr = priviList.SelectedItem as DataRowView;
+
+            try
+            {
+                if (_currRow == null)
+                {
+                    MessageBox.Show("Chọn một dòng trong bảng danh sách quyền/role để thu hồi!");
+                }
+                else
+                {
+                    // Call store proc
+                    OracleCommand cmd = new OracleCommand("REVOKE_ROLE_FROM", db.Conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("role_name", OracleDbType.Varchar2).Value = dr[1].ToString();
+                    cmd.Parameters.Add("USER", OracleDbType.Varchar2).Value = dr[0].ToString();
+
+                    cmd.ExecuteNonQuery();
+
+                    // Update view
+                    this.userList_SelectionChanged(_currRow, null);
+
+                    this._currRow = null;
+
+                    MessageBox.Show("Revoke role success!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đây là privilege, không phải role");
+            }
+
         }
     }
 }

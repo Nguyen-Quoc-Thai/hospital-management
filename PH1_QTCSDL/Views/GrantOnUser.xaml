@@ -66,17 +66,17 @@
                 Height="44" />
         </StackPanel>
 
-        <Button Margin="131,366,569,52"
+        <Button Margin="22,401,678,17"
             Width="100"
             Click="grantClick">
             Cấp quyền
         </Button>
-        <Button Margin="238,366,462,52"
+        <Button Margin="146,401,554,17"
             Width="100"
             Click="revokeClick">
-            Thu hồi
+            Thu quyền
         </Button>
-        <Button Margin="22,366,678,52"
+        <Button Margin="22,362,678,56"
             Width="100"
             Content="Cấp role" Click="Button_Click"/>
         <Label Content="Vai trò" HorizontalAlignment="Left" Margin="40,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
@@ -90,5 +90,8 @@
             DisplayMemberPath="DisplayName"
             SelectedValuePath="SelectedValue"
         />
+        <Button Margin="145,361,555,57"
+            Width="100"
+            Content="Thu role" Click="Button_Click_1"/>
     </Grid>
 </UserControl>
