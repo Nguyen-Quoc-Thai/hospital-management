@@ -12,7 +12,7 @@
         <Grid Background="White">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Text="Quản lý nhân sự" Margin="172,8,300,402"></TextBlock>
 
-            <DataGrid IsReadOnly="True" x:Name="myDataGrid" VerticalAlignment="Top" Margin="366,66,10,0" Height="334"/>
+            <DataGrid IsReadOnly="True" x:Name="myDataGrid" VerticalAlignment="Top" Margin="366,66,10,0" Height="334" SelectionChanged="myDataGrid_SelectionChanged" />
 
             <Label x:Name="content1" Content="Tên Người dùng" HorizontalAlignment="Left" Margin="25,74,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
             <TextBox x:Name="txtbxUsername" HorizontalAlignment="Left" Margin="130,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" />
@@ -20,19 +20,18 @@
             <Label x:Name="content2" Content="Mật khẩu" HorizontalAlignment="Left" Margin="25,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
             <TextBox x:Name="txtbxPassword" HorizontalAlignment="Left" Margin="130,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
 
-            <Label x:Name="content3" Content="123123" HorizontalAlignment="Left" Margin="25,167,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-            <TextBox  HorizontalAlignment="Left" Margin="130,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
+            <Label x:Name="content3" Content="Lương" HorizontalAlignment="Left" Margin="25,167,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+            <TextBox  x:Name="txtLuong" HorizontalAlignment="Left" Margin="130,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
 
-            <Label x:Name="content4" Content="123123" HorizontalAlignment="Left" Margin="25,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
-            <TextBox  HorizontalAlignment="Left" Margin="130,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
+            <Label x:Name="content4" Content="Vai trò" HorizontalAlignment="Left" Margin="25,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+            <TextBox  x:Name="txtVaiTro"  HorizontalAlignment="Left" Margin="130,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
 
-            <Label x:Name="content5" Content="123123" HorizontalAlignment="Left" Margin="25,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+            <Label x:Name="content5" Content="Đơn vị" HorizontalAlignment="Left" Margin="25,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+            <TextBox x:Name="txtDonvi" HorizontalAlignment="Left" Margin="130,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
 
-            <TextBox  HorizontalAlignment="Left" Margin="130,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
-
-            <Button x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="12,315,0,0" VerticalAlignment="Top" Width="60" Height="30"/>
-            <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="97,315,0,0" VerticalAlignment="Top" Width="79" Height="30"/>
-            <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="198,315,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
+            <Button Click="btnAdd_Click" x:Name="btnAdd" Content="Add" HorizontalAlignment="Left" Margin="12,315,0,0" VerticalAlignment="Top" Width="60" Height="30"/>
+            <Button Click="btnUpdate_Click" x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="97,315,0,0" VerticalAlignment="Top" Width="79" Height="30"/>
+            <Button Click="btnDelete_Click" x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="198,315,0,0" VerticalAlignment="Top" Width="76" Height="30"/>
             <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="290,315,0,0" VerticalAlignment="Top" Width="71" Height="30"/>
         </Grid>
 

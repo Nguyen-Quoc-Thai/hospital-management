@@ -50,9 +50,6 @@
             <TabItem Header="Chi tiết đơn thuốc">
                 <views:CTDT x:Name="CTDT" x:FieldModifier="public" Visibility="Collapsed"></views:CTDT>
             </TabItem>
-            <TabItem Header="Quản lý">
-                <QLviews:TaiNguyen_NhanSu_View></QLviews:TaiNguyen_NhanSu_View>
-            </TabItem>
         </TabControl>
 
         <materialDesign:PackIcon Kind="Doctor" Margin="0,4,139,0" HorizontalAlignment="Right"/>

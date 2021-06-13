@@ -23,6 +23,7 @@ namespace PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component
 
         OracleDatabase db;
         DataTable dt;
+        public static string currentMaNV;
         public ListStaff()
         {
             InitializeComponent();
@@ -32,32 +33,89 @@ namespace PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component
         private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             db = OracleDatabase.Instance;
-            dt = db.Query("select get_user_role from dual");
-            string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
-            
-            if(role == "BACSI")
-            {
-                dt = db.Query("select * from qt.NHANVIEN");
+            dt = db.Query("select * from qt.NHANVIEN");
 
-            }
-            else if(role == "CLGT")
-            {
-
-            }
 
             myDataGrid.ItemsSource = dt.DefaultView;
-            UpdateContentLabel();
+        }
+
+        private void myDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DataGrid dg = sender as DataGrid;
+                DataRowView dr = dg.SelectedItem as DataRowView;
+                currentMaNV = dr.Row.ItemArray[0].ToString();
+
+                txtbxUsername.Text = dr.Row.ItemArray[0].ToString();
+                txtbxPassword.Text = dr.Row.ItemArray[1].ToString();
+                txtLuong.Text = dr.Row.ItemArray[2].ToString();
+                txtVaiTro.Text = dr.Row.ItemArray[3].ToString();
+                txtDonvi.Text = dr.Row.ItemArray[4].ToString();
+            }
+            catch
+            {
+
+            }
+
 
         }
 
-        void UpdateContentLabel()
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            content1.Content = dt.Columns[0].ColumnName;
-            content2.Content = dt.Columns[1].ColumnName;
-            content3.Content = dt.Columns[2].ColumnName;
-            content4.Content = dt.Columns[3].ColumnName;
-            content5.Content = dt.Columns[4].ColumnName;
+            string sql = $@"INSERT INTO qt.NHANVIEN ( manv, hoten, luong, vaitro, donvi) VALUES ('{txtbxUsername.Text}','{txtbxPassword.Text}',{Int32.Parse(txtLuong.Text)}, '{txtVaiTro.Text}','{txtDonvi.Text}')";
+            //string sql = @"INSERT INTO qt.NHANVIEN ( manv, hoten, luong, vaitro, donvi) VALUES ('NV200','Nguyen Van A', 200, 'BS','DV1')";
 
+            try
+            {
+                db.Query(sql);
+                MessageBox.Show("Create thành công");
+                UpdateDataGrid();
+            }
+            catch
+            {
+                MessageBox.Show("Thông tin nhập không hợp lệ");
+            }
+        }
+
+        private void UpdateDataGrid()
+        {
+            DataTable dt = db.Query("select * from qt.NHANVIEN");
+            myDataGrid.ItemsSource = dt.DefaultView;
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string sql = $@"UPDATE qt.NHANVIEN set MANV = '{txtbxUsername.Text}', HOTEN = '{txtbxPassword.Text}', LUONG = {Int32.Parse(txtLuong.Text)}, VAITRO = '{txtVaiTro.Text}',DONVI = '{txtDonvi.Text}' WHERE MANV = '{currentMaNV}'";
+            //string sql = @"INSERT INTO qt.NHANVIEN ( manv, hoten, luong, vaitro, donvi) VALUES ('NV200','Nguyen Van A', 200, 'BS','DV1')";
+
+            try
+            {
+                db.Query(sql);
+                MessageBox.Show("Update thành công");
+                UpdateDataGrid();
+            }
+            catch
+            {
+                MessageBox.Show("Thông tin nhập không hợp lệ");
+            }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string sql = $@"DELETE FROM qt.NHANVIEN WHERE MANV = '{currentMaNV}'";
+            //string sql = @"INSERT INTO qt.NHANVIEN ( manv, hoten, luong, vaitro, donvi) VALUES ('NV200','Nguyen Van A', 200, 'BS','DV1')";
+
+            try
+            {
+                db.Query(sql);
+                MessageBox.Show("Delete thành công");
+                UpdateDataGrid();
+            }
+            catch
+            {
+                MessageBox.Show("Delete không thành công");
+            }
         }
     }
 

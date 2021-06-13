@@ -25,5 +25,7 @@
         <views:BacSi Visibility="Collapsed" x:Name="View_BacSi" x:FieldModifier="public"></views:BacSi>
         <views:TiepTan Visibility="Collapsed" x:Name="View_TiepTan" x:FieldModifier="public"></views:TiepTan>
         <views:Sys Visibility="Collapsed" x:Name="View_Sys" x:FieldModifier="public"></views:Sys>
+        <views:TaiNguyen_NhanSu_View Visibility="Collapsed" x:Name="View_TaiNguyen_NhanSu" x:FieldModifier="public"></views:TaiNguyen_NhanSu_View>
+
     </Grid>
 </Window>
