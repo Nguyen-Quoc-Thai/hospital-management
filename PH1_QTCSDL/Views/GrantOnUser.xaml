@@ -33,10 +33,10 @@
             SelectedValuePath="SelectedValue"
         ></ComboBox>
 
-        <StackPanel x:Name="tableColumns" Margin="40,207,484,89">
+        <StackPanel x:Name="tableColumns" Margin="40,300,588,89">
         </StackPanel>
 
-        <StackPanel Margin="40,100,460,248">
+        <StackPanel Margin="45,135,455,213">
             <CheckBox x:Name="allGrantOption"
                 Checked="GrantOptions_CheckedChanged"
                 Unchecked="GrantOptions_CheckedChanged" 
@@ -66,15 +66,32 @@
                 Height="44" />
         </StackPanel>
 
-        <Button Margin="42,366,658,52"
+        <Button Margin="22,401,678,17"
             Width="100"
             Click="grantClick">
             Cấp quyền
         </Button>
-        <Button Margin="192,366,508,52"
+        <Button Margin="146,401,554,17"
             Width="100"
             Click="revokeClick">
-            Thu hồi
+            Thu quyền
         </Button>
+        <Button Margin="22,362,678,56"
+            Width="100"
+            Content="Cấp role" Click="Button_Click"/>
+        <Label Content="Vai trò" HorizontalAlignment="Left" Margin="40,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <ComboBox
+            x:Name="cbbRoles"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Width="160" 
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="22" Margin="132,92,0,0"
+            DisplayMemberPath="DisplayName"
+            SelectedValuePath="SelectedValue"
+        />
+        <Button Margin="145,361,555,57"
+            Width="100"
+            Content="Thu role" Click="Button_Click_1"/>
     </Grid>
 </UserControl>

@@ -232,7 +232,7 @@ namespace PH1_QTCSDL.Views
                 }
                 catch
                 {
-                    MessageBox.Show("fail to grant");
+                    MessageBox.Show("Fail to grant");
                 }
             }
             else
