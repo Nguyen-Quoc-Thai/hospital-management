@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="PH2_QTCSDL.Views.QuanLyTaiVu_Component.HoaDon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PH2_QTCSDL.Views.QuanLyTaiVu_Component"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+>
+    <Grid Background="White" Margin="-4,0,4,0">
+        <Button Click="btn_Click" Content="Refresh" Margin="0,42,12,0" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" />
+
+        <DataGrid IsReadOnly="True" x:Name="HOADON_table" VerticalAlignment="Top" Margin="419,91,0,0" Height="298" SelectionChanged="HOADON_table_SelectionChanged"/>
+
+        <Label Content="Số Hóa đơn" HorizontalAlignment="Left" Margin="52,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HOADON_SOHD" TextChanged="HOADON_textChange" HorizontalAlignment="Left" Margin="165,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" />
+
+        <Label Content="Mã Khám bệnh" HorizontalAlignment="Left" Margin="52,139,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HOADON_MAKB" TextChanged="HOADON_textChange" HorizontalAlignment="Left" Margin="166,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" />
+
+        <Label Content="Ngày" HorizontalAlignment="Left" Margin="53,184,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <DatePicker x:Name="HOADON_NGAY" HorizontalAlignment="Left" Margin="166,184,0,0" VerticalAlignment="Top" Width="181" />
+
+        <Label Content="Người bán thuốc" HorizontalAlignment="Left" Margin="52,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HOADON_NGUOIBANTHUOC" TextChanged="HOADON_textChange" HorizontalAlignment="Left" Margin="166,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" RenderTransformOrigin="0.5,0.5" />
+
+        <Label Content="Tổng tiền" HorizontalAlignment="Left" Margin="52,281,0,145" RenderTransformOrigin="0.492,-1.502"/>
+        <TextBox x:Name="HOADON_TONGTIEN" TextChanged="HOADON_textChange" PreviewTextInput="HOADON_TONGTIEN_NUM" HorizontalAlignment="Left" Margin="166,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" />
+
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="27,338,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="HOADON_update"/>
+        <Button x:Name="btnInsert" Content="Insert" HorizontalAlignment="Left" Margin="121,338,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="HOADON_insert"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="219,338,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="HOADON_reset"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="320,338,0,0" VerticalAlignment="Top" Width="80" Height="30" Click="HOADON_delete"/>
+    </Grid>
+</UserControl>
