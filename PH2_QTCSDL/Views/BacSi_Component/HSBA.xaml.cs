@@ -64,7 +64,7 @@ namespace PH2_QTCSDL.Views.BacSi_Component
                 string encryptedKLBS = dr["KETLUANBS"].ToString().Split('.')[^3];
 
                 string KLBSDescripted = DESEncryption.DecryptTextFromMemory(encryptedKLBS, Convert.FromBase64String(key), Convert.FromBase64String(IV));
-                
+
                 HSBA_MAKB.Text = dr["MAKB"].ToString();
                 HSBA_MABN.Text = dr["MABN"].ToString();
                 HSBA_NGAYKB.Text = dr["NGAYKB"].ToString();
@@ -91,15 +91,15 @@ namespace PH2_QTCSDL.Views.BacSi_Component
                 DES DESalg = DES.Create();
 
                 string encryptedKLBS = DESEncryption.EncryptTextToMemory(HSBA_KLBS.Text, DESalg.Key, DESalg.IV);
-                
+
                 string sql = "UPDATE QT.HSBA SET TINHTRANGBANDAU='" + HSBA_TTBD.Text + "', KETLUANBS='" + encryptedKLBS + "." + Convert.ToBase64String(DESalg.IV) + "." + Convert.ToBase64String(DESalg.Key) + "' WHERE MAKB='" + HSBA_MAKB.Text + "'";
-                
+
                 db = OracleDatabase.Instance;
                 db.Query(sql);
                 db.Query("COMMIT");
-                
+
                 MessageBox.Show("Update thành công");
-                
+
                 this.UpdateDataGrid();
             }
             catch
@@ -112,8 +112,13 @@ namespace PH2_QTCSDL.Views.BacSi_Component
         {
             try
             {
+                DES DESalg = DES.Create();
+
+                string encryptedKLBS = DESEncryption.EncryptTextToMemory(HSBA_KLBS.Text, DESalg.Key, DESalg.IV);
+
                 string sql = $"INSERT INTO QT.HSBA(MAKB, NGAYKB, MABN, MABS, TINHTRANGBANDAU, KETLUANBS) VALUES " +
-                       $"('{HSBA_MAKB.Text}', TO_DATE('{HSBA_NGAYKB.Text}', 'dd/mm/yyyy'), '{HSBA_MABN.Text}', SYS_CONTEXT('userenv', 'SESSION_USER'), '{HSBA_TTBD.Text}', '{HSBA_KLBS.Text}')";
+                       $"('{HSBA_MAKB.Text}', TO_DATE('{HSBA_NGAYKB.Text}', 'dd/mm/yyyy'), '{HSBA_MABN.Text}', SYS_CONTEXT('userenv', 'SESSION_USER'), '{HSBA_TTBD.Text}'" +
+                       $", '{encryptedKLBS}.{Convert.ToBase64String(DESalg.IV)}.{Convert.ToBase64String(DESalg.Key)}')";
                 db = OracleDatabase.Instance;
                 db.Query(sql);
                 db.Query("COMMIT");
