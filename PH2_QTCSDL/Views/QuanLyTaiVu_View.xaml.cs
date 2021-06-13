@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,34 +16,38 @@ using System.Windows.Shapes;
 namespace PH2_QTCSDL.Views
 {
     /// <summary>
-    /// Interaction logic for QuanLyTaiVu_View.xaml
+    /// Interaction logic for TaiNguyen_NhanSu_View.xaml
     /// </summary>
     public partial class QuanLyTaiVu_View : UserControl
     {
+        MainWindow main = (MainWindow)Application.Current.MainWindow;
         public QuanLyTaiVu_View()
         {
             InitializeComponent();
-            ShowUserControl(Home);
         }
 
-        private void ShowListStaff(object sender, RoutedEventArgs e)
+        public void Logout_Click(object sender, RoutedEventArgs e)
         {
-            ShowUserControl(ListInfomation);
-
+            OracleDatabase instance = OracleDatabase.ResetInstance;
+            main.SetWindownActive(main.View_Login);
         }
-
-        private void ShowHomePage(Object sender, RoutedEventArgs e)
-        {
-            ShowUserControl(Home);
-        }
-
 
         public void ShowUserControl(UserControl uc)
         {
-            Home.Visibility = Visibility.Collapsed;
-            ListInfomation.Visibility = Visibility.Collapsed;
+            HOADON.Visibility = Visibility.Collapsed;
+            HSDV.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
+        }
+
+        private void TabSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = sender as TabControl;
+            var selected = item.SelectedItem as TabItem;
+            if (selected.Header.ToString() == "Hóa đơn")
+                ShowUserControl(HOADON);
+            else if (selected.Header.ToString() == "Hồ sơ dịch vụ")
+                ShowUserControl(HSDV);
         }
     }
 }
