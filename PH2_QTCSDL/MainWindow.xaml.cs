@@ -37,6 +37,7 @@ namespace PH2_QTCSDL
             View_TiepTan.Visibility = Visibility.Collapsed;
             View_Login.Visibility = Visibility.Collapsed;
             View_Sys.Visibility = Visibility.Collapsed;
+            View_TaiNguyen_NhanSu.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
         }

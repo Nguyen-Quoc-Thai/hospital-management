@@ -18,30 +18,31 @@ namespace PH2_QTCSDL.Views
     /// </summary>
     public partial class TaiNguyen_NhanSu_View : UserControl
     {
+        MainWindow main = (MainWindow)Application.Current.MainWindow;
         public TaiNguyen_NhanSu_View()
         {
             InitializeComponent();
-            ShowUserControl(Home);
         }
 
-        private void ShowListStaff(object sender, RoutedEventArgs e)
+        public void Logout_Click(object sender, RoutedEventArgs e)
         {
-            ShowUserControl(ListStaff);
-
+            OracleDatabase instance = OracleDatabase.ResetInstance;
+            main.SetWindownActive(main.View_Login);
         }
-
-        private void ShowHomePage(Object sender, RoutedEventArgs e)
-        {
-            ShowUserControl(Home);
-        }
-
 
         public void ShowUserControl(UserControl uc)
         {
-            Home.Visibility = Visibility.Collapsed;
-            ListStaff.Visibility = Visibility.Collapsed;
+            NhanVien.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
+        }
+
+        private void TabSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = sender as TabControl;
+            var selected = item.SelectedItem as TabItem;
+            if (selected.Header.ToString() == "Nhân viên")
+                ShowUserControl(NhanVien);
         }
     }
 }
