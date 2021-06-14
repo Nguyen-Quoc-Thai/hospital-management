@@ -49,7 +49,7 @@
             <TabItem Header="FGA logs">
                 <views:Audit x:Name="Audit" x:FieldModifier="public" Visibility="Collapsed"></views:Audit>
             </TabItem>
-            <TabItem Header="Policies">
+            <TabItem Header="FGA policies">
                 <views:Policy x:Name="Policy" x:FieldModifier="public" Visibility="Collapsed"></views:Policy>
             </TabItem>
         </TabControl>

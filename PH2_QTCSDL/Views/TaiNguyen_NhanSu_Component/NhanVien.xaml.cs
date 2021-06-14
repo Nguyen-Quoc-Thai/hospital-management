@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,18 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Oracle.ManagedDataAccess.Client;
 
-namespace PH2_QTCSDL.Views.TiepTan_Component
+namespace PH2_QTCSDL.Views.TaiNguyen_NhanSu_Component
 {
     /// <summary>
-    /// Interaction logic for HoSoDichVu.xaml
+    /// Interaction logic for NhanVien.xaml
     /// </summary>
-    public partial class HoSoDichVu : UserControl
+    public partial class NhanVien : UserControl
     {
         OracleDatabase db;
         DataRowView dr = null;
-        public HoSoDichVu()
+        public NhanVien()
         {
             InitializeComponent();
             btnInsert.IsEnabled = false;
@@ -42,8 +42,8 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
             OracleCommand cmd = db.CreateCommand("ALTER SESSION SET \"_ORACLE_SCRIPT\" = TRUE");
             try
             {
-                DataTable dt = db.Query("SELECT * FROM QT.HOSO_DICHVU");
-                HSDV_table.ItemsSource = dt.DefaultView;
+                DataTable dt = db.Query("SELECT * FROM qt.NHANVIEN");
+                NhanVien_table.ItemsSource = dt.DefaultView;
             }
             catch (Exception err)
             {
@@ -51,40 +51,41 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
             }
         }
 
-        private void HSDV_table_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void NhanVien_table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
             dr = dg.SelectedItem as DataRowView;
 
             if (dr != null)
             {
-                HSDV_MAKB.Text = dr["MAKB"].ToString();
-                HSDV_MADV.Text = dr["MADV"].ToString();
-                HSDV_NGAY.Text = dr["NGAY"].ToString();
-                HSDV_MANV.Text = dr["NGUOITHUCHIEN"].ToString();
-                HSDV_KL.Text = dr["KETLUAN"].ToString();
+                NV_MANV.Text = dr["MANV"].ToString();
+                NV_HOTEN.Text = dr["HOTEN"].ToString();
+                NV_NGAYSINH.Text = dr["NGAYSINH"].ToString();
+                NV_LUONG.Text = dr["LUONG"].ToString();
+                NV_DV.Text = dr["DONVI"].ToString();
+                NV_VT.Text = dr["VAITRO"].ToString();
             }
+
             btnInsert.IsEnabled = true;
             btnUpdate.IsEnabled = true;
             btnDelete.IsEnabled = true;
             btnReset.IsEnabled = true;
         }
 
-        private void HSDV_update(object sender, RoutedEventArgs e)
+        private void NhanVien_update(object sender, RoutedEventArgs e)
         {
             try
             {
                 string sql = "";
-
-                if(dr != null && dr["NGUOITHUCHIEN"].ToString() == HSDV_MANV.Text)
+                if (dr != null && dr["LUONG"].ToString() == NV_LUONG.Text)
                 {
-                    sql = $"UPDATE QT.HOSO_DICHVU SET MADV='{HSDV_MADV.Text}', NGAY=TO_DATE('{HSDV_NGAY.Text}','dd/mm/yyyy')" +
-                        $", KETLUAN='{HSDV_KL.Text}' WHERE MAKB='{HSDV_MAKB.Text}'";
-                } 
+                    sql = "UPDATE QT.NHANVIEN SET HOTEN='" + NV_HOTEN.Text + "', NGAYSINH=TO_DATE('"
+                    + NV_NGAYSINH.Text + "', 'mm/dd/yyyy'), VAITRO ='" + NV_VT.Text + "', DONVI='" + NV_DV.Text  + "' WHERE MANV='" + NV_MANV.Text + "'";
+                }
                 else
                 {
-                    sql = $"UPDATE QT.HOSO_DICHVU SET MADV='{HSDV_MADV.Text}', NGAY=TO_DATE('{HSDV_NGAY.Text}','dd/mm/yyyy')" +
-                        $", NGUOITHUCHIEN='{HSDV_MANV.Text}', KETLUAN='{HSDV_KL.Text}' WHERE MAKB='{HSDV_MAKB.Text}'";
+                    sql = "UPDATE QT.NHANVIEN SET HOTEN='" + NV_HOTEN.Text + "', NGAYSINH=TO_DATE('"
+                    + NV_NGAYSINH.Text + "', 'mm/dd/yyyy'), VAITRO ='" + NV_VT.Text + "', DONVI='" + NV_DV.Text + "', LUONG=" + Int32.Parse(NV_LUONG.Text) + " WHERE MANV='" + NV_MANV.Text + "'";
                 }
 
                 db = OracleDatabase.Instance;
@@ -95,40 +96,41 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
             }
             catch (Exception exc)
             {
-                MessageBox.Show("Không thể chỉnh sửa hồ sơ dịch vụ");
+                MessageBox.Show("Không thể chỉnh sửa thông tin nhân viên");
             }
         }
 
-        private void HSDV_textChange(object sender, TextChangedEventArgs e)
+        private void NhanVien_textChange(object sender, TextChangedEventArgs e)
         {
             btnInsert.IsEnabled = true;
             btnUpdate.IsEnabled = true;
             btnReset.IsEnabled = true;
         }
 
-        private void HSDV_insert(object sender, RoutedEventArgs e)
+        private void NhanVien_insert(object sender, RoutedEventArgs e)
         {
             try
             {
-                string sql = "INSERT INTO QT.HOSO_DICHVU(MAKB, MADV, NGAY, NGUOITHUCHIEN, KETLUAN) VALUES ('"
-                    + HSDV_MAKB.Text + "', '" + HSDV_MADV.Text + "', TO_DATE('" + HSDV_NGAY.Text + "', 'dd/mm/yyyy'), '" + HSDV_MANV.Text + "', '" + HSDV_KL.Text + "')";
+                string sql = "INSERT INTO QT.NHANVIEN(MANV, HOTEN, LUONG, VAITRO, DONVI, NGAYSINH) VALUES ('" + NV_MANV.Text + "', '" + NV_HOTEN.Text + "', " + Int32.Parse(NV_LUONG.Text) + ", '" + NV_VT.Text + "', '" + NV_DV.Text + "', TO_DATE('" + NV_NGAYSINH.Text + "', 'mm/dd/yyyy'))";
+
                 db = OracleDatabase.Instance;
                 db.Query(sql);
                 db.Query("COMMIT");
                 MessageBox.Show("Thêm thành công");
                 this.UpdateDataGrid();
             }
-            catch
+            catch (Exception exc)
             {
                 MessageBox.Show("Thêm không thành công");
             }
         }
 
-        private void HSDV_delete(object sender, RoutedEventArgs e)
+        private void NhanVien_delete(object sender, RoutedEventArgs e)
         {
             try
             {
-                string sql = "DELETE FROM QT.HOSO_DICHVU WHERE MAKB='" + HSDV_MAKB.Text + "'";
+                string sql = "DELETE FROM QT.NHANVIEN WHERE MANV='" + NV_MANV.Text + "'";
+
                 db = OracleDatabase.Instance;
                 db.Query(sql);
                 db.Query("COMMIT");
@@ -142,13 +144,15 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
         }
 
 
-        private void HSDV_reset(object sender, RoutedEventArgs e)
+        private void NhanVien_reset(object sender, RoutedEventArgs e)
         {
-            HSDV_MAKB.Clear();
-            HSDV_MADV.Clear();
-            HSDV_NGAY.SelectedDate = null;
-            HSDV_MANV.Clear();
-            HSDV_KL.Clear();
+            NV_MANV.Clear();
+            NV_HOTEN.Clear();
+            NV_NGAYSINH.SelectedDate = null;
+            NV_LUONG.Clear();
+            NV_VT.Clear();
+            NV_DV.Clear();
+
             btnInsert.IsEnabled = false;
             btnUpdate.IsEnabled = false;
             btnDelete.IsEnabled = false;
