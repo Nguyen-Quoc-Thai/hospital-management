@@ -21,6 +21,7 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
     public partial class HoSoDichVu : UserControl
     {
         OracleDatabase db;
+        DataRowView dr = null;
         public HoSoDichVu()
         {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
         private void HSDV_table_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
-            DataRowView dr = dg.SelectedItem as DataRowView;
+            dr = dg.SelectedItem as DataRowView;
 
             if (dr != null)
             {
@@ -73,15 +74,26 @@ namespace PH2_QTCSDL.Views.TiepTan_Component
         {
             try
             {
-                string sql = $"UPDATE QT.HOSO_DICHVU SET MADV='{HSDV_MADV.Text}', NGAY=TO_DATE('{HSDV_NGAY.Text}','dd/mm/yyyy')" +
-                    $", NGUOITHUCHIEN='{HSDV_MANV.Text}', KETLUAN='{HSDV_KL.Text}' WHERE MAKB='{HSDV_MAKB.Text}'";
+                string sql = "";
+
+                if(dr != null && dr["NGUOITHUCHIEN"].ToString() == HSDV_MANV.Text)
+                {
+                    sql = $"UPDATE QT.HOSO_DICHVU SET MADV='{HSDV_MADV.Text}', NGAY=TO_DATE('{HSDV_NGAY.Text}','dd/mm/yyyy')" +
+                        $", KETLUAN='{HSDV_KL.Text}' WHERE MAKB='{HSDV_MAKB.Text}'";
+                } 
+                else
+                {
+                    sql = $"UPDATE QT.HOSO_DICHVU SET MADV='{HSDV_MADV.Text}', NGAY=TO_DATE('{HSDV_NGAY.Text}','dd/mm/yyyy')" +
+                        $", NGUOITHUCHIEN='{HSDV_MANV.Text}', KETLUAN='{HSDV_KL.Text}' WHERE MAKB='{HSDV_MAKB.Text}'";
+                }
+
                 db = OracleDatabase.Instance;
                 db.Query(sql);
                 db.Query("COMMIT");
                 MessageBox.Show("Cập nhật thành công");
                 this.UpdateDataGrid();
             }
-            catch
+            catch (Exception exc)
             {
                 MessageBox.Show("Không thể chỉnh sửa hồ sơ dịch vụ");
             }

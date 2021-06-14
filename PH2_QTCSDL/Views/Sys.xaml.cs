@@ -44,7 +44,7 @@ namespace PH2_QTCSDL.Views
             var selected = item.SelectedItem as TabItem;
             if (selected.Header.ToString() == "FGA logs")
                 ShowUserControl(Audit);
-            else if (selected.Header.ToString() == "Policies")
+            else if (selected.Header.ToString() == "FGA policies")
                 ShowUserControl(Policy);
             else if (selected.Header.ToString() == "Basic audit logs")
                 ShowUserControl(BasicAudit);
