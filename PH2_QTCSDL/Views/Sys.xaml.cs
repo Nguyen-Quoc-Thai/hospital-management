@@ -33,6 +33,7 @@ namespace PH2_QTCSDL.Views
         public void ShowUserControl(UserControl uc)
         {
             Audit.Visibility = Visibility.Collapsed;
+            Policy.Visibility = Visibility.Collapsed;
 
             uc.Visibility = Visibility.Visible;
         }
@@ -41,8 +42,12 @@ namespace PH2_QTCSDL.Views
         {
             var item = sender as TabControl;
             var selected = item.SelectedItem as TabItem;
-            if (selected.Header.ToString() == "Audit logs")
+            if (selected.Header.ToString() == "FGA logs")
                 ShowUserControl(Audit);
+            else if (selected.Header.ToString() == "Policies")
+                ShowUserControl(Policy);
+            else if (selected.Header.ToString() == "Basic audit logs")
+                ShowUserControl(BasicAudit);
         }
     }
 }

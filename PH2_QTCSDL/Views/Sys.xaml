@@ -43,8 +43,14 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="Audit logs">
+            <TabItem Header="Basic audit logs">
+                <views:BasicAudit x:Name="BasicAudit" x:FieldModifier="public" Visibility="Collapsed"></views:BasicAudit>
+            </TabItem>
+            <TabItem Header="FGA logs">
                 <views:Audit x:Name="Audit" x:FieldModifier="public" Visibility="Collapsed"></views:Audit>
+            </TabItem>
+            <TabItem Header="Policies">
+                <views:Policy x:Name="Policy" x:FieldModifier="public" Visibility="Collapsed"></views:Policy>
             </TabItem>
         </TabControl>
 

@@ -28,8 +28,8 @@ namespace PH2_QTCSDL.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string connStr = "TNS_ADMIN=C:\\Users\\HP\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/orcl;PERSIST SECURITY INFO=True";
-            //string connStr = "TNS_ADMIN=C: \\Users\\Qouc Tahi\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password +";DATA SOURCE=localhost:1521/orclpdb1.localdomain;PERSIST SECURITY INFO=True";
+            //string connStr = "TNS_ADMIN=C:\\Users\\HP\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password + ";DATA SOURCE=localhost:1521/orcl;PERSIST SECURITY INFO=True";
+            string connStr = "TNS_ADMIN=C: \\Users\\Qouc Tahi\\Oracle\\network\\admin;USER ID=" + txtUsername.Text + ";PASSWORD=" + txtPassword.Password +";DATA SOURCE=localhost:1521/orclpdb1.localdomain;PERSIST SECURITY INFO=True";
 
             if (txtUsername.Text == "sys" || txtUsername.Text == "SYS")
             {
@@ -48,9 +48,9 @@ namespace PH2_QTCSDL.Views
                     string role = dt.Rows[0]["GET_USER_ROLE"].ToString();
                     if (role == "BACSI")
                         main.SetWindownActive(main.View_BacSi);
-                    else if (role == "QLTAINGUYENNHANSU")
+                    else if (role == "QUANLY")
                     {
-                        //main.SetWindownActive(main.View_TaiNguyen_NhanSu);
+                        main.SetWindownActive(main.View_TaiNguyen_NhanSu);
                     }
 
                     else if (role == "TIEPTAN")
